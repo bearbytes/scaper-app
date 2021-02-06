@@ -1,7 +1,8 @@
 import { css, Global } from '@emotion/react'
 import React, { ReactNode } from 'react'
-import { Box, Column, Row } from '@components'
-import SideBarButton from '../components/SideBarButton'
+import { Box, Column, Row, IconButton } from '@components'
+import { IconType } from 'react-icons'
+import { RiPlantLine } from 'react-icons/ri'
 
 const globalStyles = css`
   html,
@@ -40,10 +41,23 @@ function Screen(props: { children: ReactNode }) {
 function SideBar() {
   return (
     <Column color="elevated" height={'100%'} gap="M" pad="M">
-      <SideBarButton />
-      <SideBarButton />
-      <SideBarButton />
-      <SideBarButton />
+      <SideBarButton icon={RiPlantLine} text="Plants" />
+      <SideBarButton icon={RiPlantLine} text="Plants" />
+      <SideBarButton icon={RiPlantLine} text="Plants" />
+      <SideBarButton icon={RiPlantLine} text="Plants" />
     </Column>
+  )
+}
+
+function SideBarButton(props: { icon: IconType; text: string }) {
+  return (
+    <IconButton
+      width={75}
+      height={75}
+      color="background"
+      icon={props.icon}
+      iconSize={'XL'}
+      text={props.text}
+    />
   )
 }

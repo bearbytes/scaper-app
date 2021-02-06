@@ -21,7 +21,10 @@ export type BoxProps = {
   textColor?: TextColor
 
   width?: number | string
+  maxWidth?: number | string
+
   height?: number | string
+  maxHeight?: number | string
 
   borderRadius?: BorderRadius
 
@@ -47,7 +50,9 @@ export function Box(props: BoxProps) {
     textColor,
 
     width,
+    maxWidth,
     height,
+    maxHeight,
 
     borderRadius,
 
@@ -67,7 +72,9 @@ export function Box(props: BoxProps) {
     color: theme.textColor[textColor],
 
     width,
+    maxWidth,
     height,
+    maxHeight,
 
     borderRadius: theme.borderRadius[borderRadius],
   })

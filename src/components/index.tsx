@@ -1,4 +1,6 @@
 export * from './Box'
+export * from './Button'
 export * from './FlexBox'
+export * from './IconButton'
 export * from './Label'
 export * from './Spacer'
