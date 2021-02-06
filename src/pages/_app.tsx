@@ -1,21 +1,10 @@
-import styled, { ThemeProvider } from 'styled-components'
-import { GlobalStyle, theme } from '../theme'
+import { RendererProvider } from 'react-fela'
+import { FelaRenderer } from '../FelaRenderer'
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <FullScreen>
-          <Component {...pageProps} />
-        </FullScreen>
-      </ThemeProvider>
-    </>
+    <RendererProvider renderer={FelaRenderer}>
+      <Component {...pageProps} />
+    </RendererProvider>
   )
 }
-
-const FullScreen = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-`

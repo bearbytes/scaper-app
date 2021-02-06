@@ -1,36 +1,35 @@
-import Document, { DocumentContext } from 'next/document'
-import { ServerStyleSheet } from 'styled-components'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { renderToNodeList } from 'fela'
+
+import getFelaRenderer from '../getFelaRenderer'
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const sheet = new ServerStyleSheet()
-    const renderPage = ctx.renderPage
+  static async getInitialProps(ctx) {
+    const renderer = getFelaRenderer()
+    const originalRenderPage = ctx.renderPage
 
-    try {
-      return await initialPropsWithInjectedStyles()
-    } finally {
-      sheet.seal()
-    }
-
-    async function initialPropsWithInjectedStyles() {
-      ctx.renderPage = renderPageAndCollectStyles
-
-      const initialProps = await Document.getInitialProps(ctx)
-      return {
-        ...initialProps,
-        styles: (
-          <>
-            {initialProps.styles}
-            {sheet.getStyleElement()}
-          </>
-        ),
-      }
-    }
-
-    function renderPageAndCollectStyles() {
-      return renderPage({
-        enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: App => props => <App {...props} renderer={renderer} />,
       })
+
+    const initialProps = await Document.getInitialProps(ctx)
+    const styles = renderToNodeList(renderer)
+    return {
+      ...initialProps,
+      styles: [...initialProps.styles, ...styles],
     }
+  }
+
+  render() {
+    return (
+      <Html>
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    )
   }
 }
