@@ -1,5 +1,4 @@
-import React from 'react'
-import { Box, Column, Row } from '../components'
+import { Box, Column, Row } from '@components'
 
 export default function Index() {
   return (

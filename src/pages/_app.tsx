@@ -1,24 +1,18 @@
 import { css, Global } from '@emotion/react'
 import React from 'react'
 
+const globalStyles = css`
+  html,
+  body {
+    margin: 0;
+  }
+`
+
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <GlobalStyles />
+      <Global styles={globalStyles} />
       <Component {...pageProps} />
     </>
-  )
-}
-
-function GlobalStyles() {
-  return (
-    <Global
-      styles={css`
-        html,
-        body {
-          margin: 0;
-        }
-      `}
-    />
   )
 }
