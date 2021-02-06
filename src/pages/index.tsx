@@ -1,13 +1,21 @@
-import styled from 'styled-components'
-
-const Container = styled.div`
-  text-align: center;
-`
+import React from 'react'
+import { Box, Column, Row } from '../components'
 
 export default function Index() {
   return (
-    <Container>
-      <h1>Hello, world!</h1>
-    </Container>
+    <Column flex color="background" gap="S">
+      <Row alignLeft color="primary" gap="S">
+        <Box color="highlight">Box1</Box>
+        <Box color="highlight">Box2</Box>
+      </Row>
+      <Row alignRight color="primary" gap="S">
+        <Box color="highlight">Box1</Box>
+        <Box color="highlight">Box2</Box>
+      </Row>
+      <Row alignCenter color="primary" gap="S">
+        <Box color="highlight">Box1</Box>
+        <Box color="highlight">Box2</Box>
+      </Row>
+    </Column>
   )
 }

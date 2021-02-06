@@ -1,16 +1,21 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
+import { GlobalStyle, theme } from '../theme'
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <FullScreen>
+          <Component {...pageProps} />
+        </FullScreen>
+      </ThemeProvider>
     </>
   )
 }
 
-const GlobalStyle = createGlobalStyle`
- h1 {
-   font-size: 4rem;
- }
+const FullScreen = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
 `
