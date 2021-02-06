@@ -1,6 +1,6 @@
 import { css, SerializedStyles } from '@emotion/react'
 import { ReactNode } from 'react'
-import { Color, Spacing, TextColor, theme } from '../theme'
+import { BorderRadius, Color, Spacing, TextColor, theme } from '../theme'
 
 export type BoxProps = {
   children?: ReactNode
@@ -22,6 +22,10 @@ export type BoxProps = {
 
   width?: number | string
   height?: number | string
+
+  borderRadius?: BorderRadius
+
+  onPress?(): void
 }
 
 export function Box(props: BoxProps) {
@@ -44,23 +48,33 @@ export function Box(props: BoxProps) {
 
     width,
     height,
+
+    borderRadius,
+
+    onPress,
   } = props
 
   const boxStyle = css({
-    padding: theme.spacings[pad],
-    paddingLeft: theme.spacings[padLeft ?? padHorizonal],
-    paddingRight: theme.spacings[padRight ?? padHorizonal],
-    paddingTop: theme.spacings[padTop ?? padVertical],
-    paddingBottom: theme.spacings[padBottom ?? padVertical],
+    padding: theme.spacing[pad],
+    paddingLeft: theme.spacing[padLeft ?? padHorizonal],
+    paddingRight: theme.spacing[padRight ?? padHorizonal],
+    paddingTop: theme.spacing[padTop ?? padVertical],
+    paddingBottom: theme.spacing[padBottom ?? padVertical],
 
     flex: typeof flex == 'number' ? flex : flex == true ? 1 : undefined,
 
-    backgroundColor: theme.colors[color],
-    color: theme.textColors[textColor],
+    backgroundColor: theme.color[color],
+    color: theme.textColor[textColor],
 
     width,
     height,
+
+    borderRadius: theme.borderRadius[borderRadius],
   })
 
-  return <div css={[boxStyle, style]}>{children}</div>
+  return (
+    <div css={[boxStyle, style]} onClick={props.onPress}>
+      {children}
+    </div>
+  )
 }

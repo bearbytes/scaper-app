@@ -26,12 +26,12 @@ function FlexBox(props: FlexBoxProps) {
     ...boxProps
   } = props
 
-  let horizontal = 'center'
+  let horizontal: string
   if (alignCenter) horizontal = 'center'
   if (alignLeft) horizontal = 'flex-start'
   if (alignRight) horizontal = 'flex-end'
 
-  let vertical = 'center'
+  let vertical: string
   if (alignCenter) vertical = 'center'
   if (alignTop) vertical = 'flex-start'
   if (alignBottom) vertical = 'flex-end'
@@ -46,7 +46,7 @@ function FlexBox(props: FlexBoxProps) {
     justifyContent,
     alignItems,
 
-    gap: theme.spacings[gap],
+    gap: theme.spacing[gap],
   })
 
   return <Box {...boxProps} style={flexBoxStyle} />

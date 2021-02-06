@@ -1,5 +1,5 @@
-import { Box, Column, Row } from '@components'
+import { Box, Column, Label, Row } from '@components'
 
 export default function Index() {
-  return <p>ScreenContent</p>
+  return <Label text="Index" />
 }
