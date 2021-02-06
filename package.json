@@ -8,21 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
-    "date-fns": "^2.11.1",
-    "fela": "latest",
-    "fela-dom": "latest",
-    "fela-preset-web": "latest",
-    "gray-matter": "^4.0.2",
+    "@zeit/next-css": "^1.0.1",
+    "linaria": "^3.0.0-beta.1",
     "next": "^10.0.0",
     "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-fela": "latest",
-    "remark": "^12.0.0",
-    "remark-html": "^12.0.0",
-    "styled-components": "^5.2.1"
+    "react-dom": "17.0.1"
   },
-  "devDependencies": {
-    "@types/styled-components": "^5.1.7",
-    "babel-plugin-styled-components": "^1.12.0"
-  }
+  "devDependencies": {}
 }
