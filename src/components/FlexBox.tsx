@@ -1,35 +1,61 @@
-import styled from 'styled-components'
-import { Spacing } from '../theme/styled'
+import { css } from '@emotion/react'
+import { Spacing, theme } from '../theme'
 import { Box, BoxProps } from './Box'
 
-type MixinAlignProps = {
+export type FlexBoxProps = BoxProps & {
+  flexDirection: 'row' | 'column'
+
   alignLeft?: boolean
   alignRight?: boolean
   alignCenter?: boolean
+  alignTop?: boolean
+  alignBottom?: boolean
+
+  gap?: Spacing
 }
 
-export type FlexBoxProps = BoxProps & MixinAlignProps & { gap?: Spacing }
+function FlexBox(props: FlexBoxProps) {
+  const {
+    flexDirection,
+    alignLeft,
+    alignRight,
+    alignTop,
+    alignBottom,
+    alignCenter,
+    gap,
+    ...boxProps
+  } = props
 
-const FlexBox = styled(Box)<FlexBoxProps>`
-  display: flex;
+  let horizontal = 'center'
+  if (alignCenter) horizontal = 'center'
+  if (alignLeft) horizontal = 'flex-start'
+  if (alignRight) horizontal = 'flex-end'
 
-  gap: ${({ theme, gap }) => {
-    if (gap == null) return undefined
-    return `${theme.spacings[gap]}px`
-  }};
-`
+  let vertical = 'center'
+  if (alignCenter) vertical = 'center'
+  if (alignTop) vertical = 'flex-start'
+  if (alignBottom) vertical = 'flex-end'
 
-export const Row = styled(FlexBox)`
-  flex-direction: row;
+  const justifyContent = flexDirection == 'row' ? horizontal : vertical
+  const alignItems = flexDirection == 'row' ? vertical : horizontal
 
-  justify-content: ${({ alignLeft, alignRight, alignCenter }) => {
-    if (alignLeft) return 'flex-start'
-    if (alignRight) return 'flex-end'
-    if (alignCenter) return 'center'
-    return undefined
-  }};
-`
+  const flexBoxStyle = css({
+    display: 'flex',
+    flexDirection,
 
-export const Column = styled(FlexBox)`
-  flex-direction: column;
-`
+    justifyContent,
+    alignItems,
+
+    gap: theme.spacings[gap],
+  })
+
+  return <Box {...boxProps} style={flexBoxStyle} />
+}
+
+export function Row(props: Omit<FlexBoxProps, 'flexDirection'>) {
+  return <FlexBox {...props} flexDirection="row" />
+}
+
+export function Column(props: Omit<FlexBoxProps, 'flexDirection'>) {
+  return <FlexBox {...props} flexDirection="column" />
+}

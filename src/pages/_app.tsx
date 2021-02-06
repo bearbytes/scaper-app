@@ -1,10 +1,24 @@
-import { RendererProvider } from 'react-fela'
-import { FelaRenderer } from '../FelaRenderer'
+import { css, Global } from '@emotion/react'
+import React from 'react'
 
-export default function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
   return (
-    <RendererProvider renderer={FelaRenderer}>
+    <>
+      <GlobalStyles />
       <Component {...pageProps} />
-    </RendererProvider>
+    </>
+  )
+}
+
+function GlobalStyles() {
+  return (
+    <Global
+      styles={css`
+        html,
+        body {
+          margin: 0;
+        }
+      `}
+    />
   )
 }

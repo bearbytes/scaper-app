@@ -1,12 +1,4 @@
-import { createGlobalStyle, DefaultTheme } from "styled-components";
-
-export const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-  }
-`
-
-export const theme: DefaultTheme = {
+export const theme = {
   colors: {
     background: '#390099',
     elevated: '#9E0059',
@@ -25,3 +17,9 @@ export const theme: DefaultTheme = {
     M: 8
   }
 }
+
+export type Theme = typeof theme
+export type Spacing = 'none' | 'S' | 'M'
+export type Color = keyof Theme['colors']
+export type FontSize = keyof Theme['fontSizes']
+
