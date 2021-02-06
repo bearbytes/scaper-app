@@ -1,5 +1,6 @@
 import { css, Global } from '@emotion/react'
 import React from 'react'
+import { Screen } from '@components'
 
 const globalStyles = css`
   html,
@@ -12,7 +13,9 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Global styles={globalStyles} />
-      <Component {...pageProps} />
+      <Screen>
+        <Component {...pageProps} />
+      </Screen>
     </>
   )
 }

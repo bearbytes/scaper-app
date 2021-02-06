@@ -1,10 +1,9 @@
 export const theme = {
   colors: {
-    background: '#390099',
-    elevated: '#9E0059',
-    secondary: '#FF0054',
-    primary: '#FF5400',
-    highlight: '#FFBD00',
+    background: '#333',
+  },
+  textColors: {
+    text: '#eee'
   },
   fontSizes: {
     small: '1em',
@@ -21,5 +20,6 @@ export const theme = {
 export type Theme = typeof theme
 export type Spacing = 'none' | 'S' | 'M'
 export type Color = keyof Theme['colors']
+export type TextColor = keyof Theme['textColors']
 export type FontSize = keyof Theme['fontSizes']
 

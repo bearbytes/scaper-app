@@ -1,6 +1,6 @@
 import { css, SerializedStyles } from '@emotion/react'
 import { ReactNode } from 'react'
-import { Color, Spacing, theme } from '../theme'
+import { Color, Spacing, TextColor, theme } from '../theme'
 
 export type BoxProps = {
   children?: ReactNode
@@ -18,13 +18,17 @@ export type BoxProps = {
   flex?: number | boolean
 
   color?: Color
-  textColor?: Color
+  textColor?: TextColor
+
+  width?: number | string
+  height?: number | string
 }
 
 export function Box(props: BoxProps) {
   const {
     children,
     style,
+
     pad,
     padVertical,
     padHorizonal,
@@ -32,9 +36,14 @@ export function Box(props: BoxProps) {
     padRight,
     padTop,
     padBottom,
+
     flex,
+
     color,
     textColor,
+
+    width,
+    height,
   } = props
 
   const boxStyle = css({
@@ -44,12 +53,13 @@ export function Box(props: BoxProps) {
     paddingTop: theme.spacings[padTop ?? padVertical],
     paddingBottom: theme.spacings[padBottom ?? padVertical],
 
-    // Flex
     flex: typeof flex == 'number' ? flex : flex == true ? 1 : undefined,
 
-    // Color
     backgroundColor: theme.colors[color],
-    color: theme.colors[textColor],
+    color: theme.textColors[textColor],
+
+    width,
+    height,
   })
 
   return <div css={[boxStyle, style]}>{children}</div>
