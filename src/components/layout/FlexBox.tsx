@@ -11,6 +11,9 @@ export type FlexBoxProps = BoxProps & {
   alignTop?: boolean
   alignBottom?: boolean
 
+  spaceBetween?: boolean
+  spaceEvenly?: boolean
+
   gap?: Spacing
 }
 
@@ -22,22 +25,33 @@ function FlexBox(props: FlexBoxProps) {
     alignTop,
     alignBottom,
     alignCenter,
+
+    spaceBetween,
+    spaceEvenly,
+
     gap,
     ...boxProps
   } = props
 
-  let horizontal: string
-  if (alignCenter) horizontal = 'center'
-  if (alignLeft) horizontal = 'flex-start'
-  if (alignRight) horizontal = 'flex-end'
+  let alignHorizontal: string
+  if (alignCenter) alignHorizontal = 'center'
+  else if (alignLeft) alignHorizontal = 'flex-start'
+  else if (alignRight) alignHorizontal = 'flex-end'
 
-  let vertical: string
-  if (alignCenter) vertical = 'center'
-  if (alignTop) vertical = 'flex-start'
-  if (alignBottom) vertical = 'flex-end'
+  let alignVertical: string
+  if (alignCenter) alignVertical = 'center'
+  else if (alignTop) alignVertical = 'flex-start'
+  else if (alignBottom) alignVertical = 'flex-end'
 
-  const justifyContent = flexDirection == 'row' ? horizontal : vertical
-  const alignItems = flexDirection == 'row' ? vertical : horizontal
+  let justifyContent: string
+  if (spaceBetween) justifyContent = 'space-between'
+  else if (spaceEvenly) justifyContent = 'space-evenly'
+  else if (flexDirection == 'row') justifyContent = alignHorizontal
+  else justifyContent = alignVertical
+
+  let alignItems: string
+  if (flexDirection == 'row') alignItems = alignVertical
+  else alignItems = alignHorizontal
 
   const flexBoxStyle = css({
     display: 'flex',

@@ -1,10 +1,8 @@
 import { GetStaticPathsContext, GetStaticPropsContext } from 'next'
-import { useRouter } from 'next/router'
 import React from 'react'
-import { Card, Column, Grid, Label, Row, Table } from '@components'
+import { Card, Column, Grid, Label, Row, StarRating } from '@components'
 import { prisma } from '../../lib/prisma'
 import { entries, groupBy, map } from 'lodash'
-import { StarRating } from '../../components/display/StarRating'
 
 type PersonPageProps = {
   name: string
@@ -20,6 +18,7 @@ type SkillCategory = {
   skills: Skill[]
 }
 type Skill = {
+  id: number
   skillName: string
   level: number
 }
@@ -27,7 +26,7 @@ type Skill = {
 export default function PersonPage(props: PersonPageProps) {
   return (
     <Column gap="M">
-      <Label large text={props.name} />
+      <Label bold large text={props.name} />
       {props.teamRoles.map(({ teamName, roleName }) => (
         <Label key={roleName} text={`${roleName} in ${teamName}`} />
       ))}
@@ -49,10 +48,10 @@ function SkillCategoryBlock(props: { skillCategory: SkillCategory }) {
   return (
     <Card>
       <Label padBottom="M" bold text={categoryName} />
-      {skills.map(({ skillName, level }) => (
+      {skills.map(({ id, skillName, level }) => (
         <Row key={skillName} gap="M">
           <StarRating rating={level} max={3} />
-          <Label text={skillName} />
+          <Label text={skillName} linkTo={`/skill/${id}`} />
         </Row>
       ))}
     </Card>
@@ -98,6 +97,7 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
       ([categoryName, personSkills]) => ({
         categoryName,
         skills: personSkills.map(({ skill, level }) => ({
+          id: skill.id,
           skillName: skill.name,
           level: level.level,
         })),
