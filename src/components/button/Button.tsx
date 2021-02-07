@@ -1,10 +1,10 @@
+import { css } from '@emotion/react'
 import React from 'react'
 import { IconType } from 'react-icons'
 import { Icon } from '../display/Icon'
-import { BoxProps } from '../layout/Box'
-import { Row } from '../layout/FlexBox'
+import { Row, RowProps } from '../layout/FlexBox'
 
-export type ButtonProps = BoxProps & {
+export type ButtonProps = RowProps & {
   icon?: IconType
   text?: string
 
@@ -12,7 +12,12 @@ export type ButtonProps = BoxProps & {
 }
 
 export function Button(props: ButtonProps) {
-  const { icon, text, disabled, ...boxProps } = props
+  const { icon, text, disabled, style, ...rowProps } = props
+
+  const buttonStyle = css({
+    ':hover': { filter: 'brightness(150%)' },
+    transition: 'all 0.2s',
+  })
 
   return (
     <Row
@@ -22,7 +27,8 @@ export function Button(props: ButtonProps) {
       padHorizonal="M"
       color="elevated"
       maxWidth={250}
-      {...boxProps}
+      {...rowProps}
+      style={[buttonStyle, style]}
     >
       {icon && <Icon icon={icon} />}
       <p>{text}</p>

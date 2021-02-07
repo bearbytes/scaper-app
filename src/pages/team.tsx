@@ -1,5 +1,7 @@
-import { Box, Column, Label, Row } from '@components'
-import { GetServerSidePropsContext, GetStaticPropsContext } from 'next'
+import { Column, Grid, Label, Row } from '@components'
+import { GetStaticPropsContext } from 'next'
+import React from 'react'
+import { Card } from '../components/display/Card'
 import { prisma } from '../lib/prisma'
 
 type IndexPageProps = { teams: Team[] }
@@ -8,33 +10,41 @@ type Person = { abbreviation: string; name: string; role: string }
 
 export default function Index({ teams }: IndexPageProps) {
   return (
-    <Column gap="L">
+    <Grid columnWidth={300} gap="M">
       {teams.map(team => (
         <TeamBlock key={team.name} team={team} />
       ))}
-    </Column>
+    </Grid>
   )
 }
 
 function TeamBlock({ team }: { team: Team }) {
   return (
-    <Column>
-      <Label text={team.name} />
+    <Card>
+      <Label bold large text={team.name} />
       <Label small text={team.description} />
-      <Column padLeft="M">
+      <Column padLeft="M" padTop="M" gap="XS">
         {team.people.map(person => (
           <PersonBlock key={person.name} person={person} />
         ))}
       </Column>
-    </Column>
+    </Card>
   )
 }
 
 function PersonBlock({ person }: { person: Person }) {
-  return <Label text={`[${person.abbreviation}] ${person.name}`} />
+  return (
+    <Grid gap="S" columns="40px 1fr 100px">
+      <Label width={40} text={person.abbreviation} />
+      <Label flex={2} text={person.name} />
+      <Label flex={1} text={person.role} />
+    </Grid>
+  )
+
+  return
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps() {
   const teamsWithPersons = await prisma.team.findMany({
     include: {
       person_team_role: {

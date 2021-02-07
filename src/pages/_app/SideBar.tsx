@@ -4,7 +4,6 @@ import { RiTeamLine } from 'react-icons/ri'
 import { GiSkills } from 'react-icons/gi'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { SideBarButton } from './SideBarButton'
-import { theme } from '../../components/theme'
 
 export function SideBar() {
   return (

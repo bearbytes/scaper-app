@@ -27,6 +27,8 @@ export type BoxProps = {
   height?: number | string
   maxHeight?: number | string
 
+  borderColor?: Color
+  shadowColor?: Color
   borderRadius?: BorderRadius
 
   onPress?(): void
@@ -55,6 +57,7 @@ export function Box(props: BoxProps) {
     height,
     maxHeight,
 
+    borderColor,
     borderRadius,
 
     onPress,
@@ -78,10 +81,15 @@ export function Box(props: BoxProps) {
     maxHeight,
 
     borderRadius: theme.borderRadius[borderRadius],
+    borderColor: theme.color[borderColor],
+    borderWidth: borderColor ? 1 : 0,
+    borderStyle: 'solid',
+
+    cursor: onPress ? 'pointer' : undefined,
   })
 
   return (
-    <div css={[boxStyle, style]} onClick={props.onPress}>
+    <div css={[boxStyle, style]} onClick={onPress}>
       {children}
     </div>
   )

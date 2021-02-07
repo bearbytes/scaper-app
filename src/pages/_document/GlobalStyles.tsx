@@ -5,8 +5,8 @@ const globalStyles = css`
   body {
     padding: 0;
     margin: 0;
-    font-family: Pompiere;
-    font-size: 1.1em;
+    font-family: Roboto;
+    font-size: 1em;
   }
 `
 

@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
         <GlobalStyles />
         <Head>
           <link
-            href="https://fonts.googleapis.com/css2?family=Pompiere&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
             rel="stylesheet"
           />
         </Head>

@@ -52,10 +52,12 @@ function FlexBox(props: FlexBoxProps) {
   return <Box {...boxProps} style={[flexBoxStyle, props.style]} />
 }
 
-export function Row(props: Omit<FlexBoxProps, 'flexDirection'>) {
+export type RowProps = Omit<FlexBoxProps, 'flexDirection'>
+export function Row(props: RowProps) {
   return <FlexBox {...props} flexDirection="row" />
 }
 
-export function Column(props: Omit<FlexBoxProps, 'flexDirection'>) {
+export type ColumnProps = Omit<FlexBoxProps, 'flexDirection'>
+export function Column(props: ColumnProps) {
   return <FlexBox {...props} flexDirection="column" />
 }

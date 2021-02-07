@@ -13,7 +13,7 @@ export function Screen(props: { children: ReactNode }) {
       textColor={'text'}
     >
       <SideBar />
-      <Box flex pad={'M'}>
+      <Box flex pad="M">
         {props.children}
       </Box>
     </Row>

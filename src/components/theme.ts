@@ -1,15 +1,16 @@
 export const theme = {
   color: {
     background: '#1f1f00',
-    elevated: '#b18c3d',
+    elevated: '#e4a930',
   },
   textColor: {
-    text: '#eee'
+    text: '#eee',
+    inverted: '#1f1f00',
   },
   fontSize: {
     default: '1em',
     small: '0.7em',
-    large: '2em',
+    large: '1.5em',
   },
   spacing: {
     none: 0,
