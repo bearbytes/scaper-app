@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 import { Box } from '../layout/Box'
-import { Grid } from '../layout/Grid'
+import { Grid, GridProps } from '../layout/Grid'
 
-export type TableProps<T> = {
+export type TableProps<T> = Omit<GridProps, 'columnWidth' | 'columns'> & {
   rows: T[]
   columns: Array<{
     flex?: number
@@ -11,7 +11,7 @@ export type TableProps<T> = {
 }
 
 export function Table<T>(props: TableProps<T>) {
-  const { rows, columns } = props
+  const { rows, columns, ...gridProps } = props
 
   let gridColumns = ''
   columns.forEach(({ flex = 1 }) => {
@@ -19,7 +19,7 @@ export function Table<T>(props: TableProps<T>) {
   })
 
   return (
-    <Grid columns={gridColumns}>
+    <Grid columns={gridColumns} {...gridProps}>
       {rows.map((row, rowIndex) =>
         columns.map((col, colIndex) => (
           <Box key={rowIndex + '_' + colIndex}>{col.renderCell(row)}</Box>

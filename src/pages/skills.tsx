@@ -32,7 +32,7 @@ type Skill = {
 
 export default function SkillsPage(props: SkillsPageProps) {
   return (
-    <Grid columnWidth={250} gap="M">
+    <Grid columnWidth={300} gap="M">
       {props.categories.map(category => (
         <CategoryBlock key={category.categoryName} category={category} />
       ))}
@@ -49,19 +49,25 @@ function CategoryBlock(props: { category: Category }) {
         rows={skills}
         columns={[
           {
-            flex: 5,
+            flex: 10,
             renderCell: skill => (
               <Label text={skill.skillName} linkTo={`/skill/${skill.id}`} />
             ),
           },
           {
-            renderCell: skill => <Label text={skill.skillCount1.toString()} />,
+            renderCell: skill => (
+              <Label padLeft="S" text={skill.skillCount1.toString()} />
+            ),
           },
           {
-            renderCell: skill => <Label text={skill.skillCount2.toString()} />,
+            renderCell: skill => (
+              <Label padLeft="S" text={skill.skillCount2.toString()} />
+            ),
           },
           {
-            renderCell: skill => <Label text={skill.skillCount3.toString()} />,
+            renderCell: skill => (
+              <Label padLeft="S" text={skill.skillCount3.toString()} />
+            ),
           },
         ]}
       />

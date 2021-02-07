@@ -2,10 +2,17 @@ import { GetStaticPathsContext, GetStaticPropsContext } from 'next'
 import React from 'react'
 import { Card, Column, Grid, Label, Row, StarRating } from '@components'
 import { prisma } from '../../lib/prisma'
+import { GiTreasureMap } from 'react-icons/gi'
+import { entries, first, groupBy, map } from 'lodash'
 
 type SkillPageProps = {
   skillName: string
   categoryName: string
+  teams: Team[]
+}
+
+type Team = {
+  teamName: string
   persons: Person[]
 }
 
@@ -20,8 +27,23 @@ export default function SkillPage(props: SkillPageProps) {
     <Column gap="M">
       <Label bold large text={props.skillName} />
       <Label text={props.categoryName} />
-      <Card maxWidth={250}>
-        {props.persons.map(person => (
+      <Grid columnWidth={250} gap="M">
+        {props.teams.map(team => (
+          <TeamBlock key={team.teamName} team={team} />
+        ))}
+      </Grid>
+    </Column>
+  )
+}
+
+function TeamBlock(props: { team: Team }) {
+  const { teamName, persons } = props.team
+
+  return (
+    <Card gap="M">
+      <Label bold text={teamName} />
+      <Column>
+        {persons.map(person => (
           <Row key={person.abbreviation} spaceBetween>
             <Label
               text={person.name}
@@ -30,8 +52,8 @@ export default function SkillPage(props: SkillPageProps) {
             <StarRating rating={person.level} max={3} />
           </Row>
         ))}
-      </Card>
-    </Column>
+      </Column>
+    </Card>
   )
 }
 
@@ -44,7 +66,15 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
       category: true,
       person_skill: {
         include: {
-          person: true,
+          person: {
+            include: {
+              person_team_role: {
+                include: {
+                  team: true,
+                },
+              },
+            },
+          },
           level: true,
         },
       },
@@ -54,11 +84,22 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
   const props: SkillPageProps = {
     skillName: skill.name,
     categoryName: skill.category.name,
-    persons: skill.person_skill.map(({ person, level }) => ({
-      abbreviation: person.abbreviation,
-      name: `${person.firstname} ${person.lastname}`,
-      level: level.level,
-    })),
+    teams: map(
+      entries(
+        groupBy(
+          skill.person_skill,
+          it => first(it.person.person_team_role).team.name,
+        ),
+      ),
+      ([teamName, personSkills]) => ({
+        teamName,
+        persons: personSkills.map(({ person, level }) => ({
+          abbreviation: person.abbreviation,
+          name: `${person.firstname} ${person.lastname}`,
+          level: level.level,
+        })),
+      }),
+    ),
   }
 
   return { props }
