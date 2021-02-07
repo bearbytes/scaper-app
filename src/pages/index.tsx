@@ -1,6 +1,6 @@
 import { Box, Column, Label, Row } from '@components'
 import { FaBeer } from 'react-icons/fa'
-import { Button } from '../components/Button'
+import { Button } from '../components/button/Button'
 
 export default function Index() {
   return (

@@ -1,7 +1,8 @@
-import { BoxProps } from './Box'
-import { Icon } from './Icon'
+import React from 'react'
 import { IconType } from 'react-icons'
-import { Row } from './FlexBox'
+import { Icon } from '../display/Icon'
+import { BoxProps } from '../layout/Box'
+import { Row } from '../layout/FlexBox'
 
 export type ButtonProps = BoxProps & {
   icon?: IconType

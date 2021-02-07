@@ -30,7 +30,7 @@ export const theme = {
     S: 12,
     M: 18,
     L: 24,
-    XL: 48,
+    XL: 36,
   }
 }
 

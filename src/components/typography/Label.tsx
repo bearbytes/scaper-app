@@ -1,4 +1,5 @@
-import { Box, BoxProps } from './Box'
+import React from 'react'
+import { Box, BoxProps } from '../layout/Box'
 
 export type LabelProps = BoxProps & {
   text: string

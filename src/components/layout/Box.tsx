@@ -1,6 +1,6 @@
 import { css, SerializedStyles } from '@emotion/react'
 import { ReactNode } from 'react'
-import { BorderRadius, Color, Spacing, TextColor, theme } from '../theme'
+import { Spacing, Color, TextColor, BorderRadius, theme } from '../theme'
 
 export type BoxProps = {
   children?: ReactNode
