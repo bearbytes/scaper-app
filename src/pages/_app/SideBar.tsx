@@ -1,16 +1,18 @@
 import React from 'react'
-import { Column } from '@components'
-import { IoCubeOutline } from 'react-icons/io5'
-import { RiPlantLine } from 'react-icons/ri'
+import { Column, Spacer } from '@components'
+import { RiTeamLine } from 'react-icons/ri'
+import { GiSkills } from 'react-icons/gi'
+import { IoSettingsOutline } from 'react-icons/io5'
 import { SideBarButton } from './SideBarButton'
+import { theme } from '../../components/theme'
 
 export function SideBar() {
   return (
-    <Column color="elevated" height={'100%'} gap="M" pad="M">
-      <SideBarButton icon={IoCubeOutline} text="Tanks" />
-      <SideBarButton icon={RiPlantLine} text="Plants" />
-      <SideBarButton icon={RiPlantLine} text="Hardscape" />
-      <SideBarButton icon={RiPlantLine} text="Gadgets" />
+    <Column color="elevated" gap="M" pad="M">
+      <SideBarButton icon={RiTeamLine} text="Teams" />
+      <SideBarButton icon={GiSkills} text="Skills" />
+      <Spacer />
+      <SideBarButton icon={IoSettingsOutline} text="Settings" />
     </Column>
   )
 }

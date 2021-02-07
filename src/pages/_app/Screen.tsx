@@ -6,8 +6,10 @@ export function Screen(props: { children: ReactNode }) {
   return (
     <Row
       color={'background'}
-      width={'100vw'}
       height={'100vh'}
+      style={{
+        overflow: 'hidden',
+      }}
       textColor={'text'}
     >
       <SideBar />

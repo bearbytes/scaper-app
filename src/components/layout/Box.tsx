@@ -1,11 +1,12 @@
-import { css, SerializedStyles } from '@emotion/react'
+import { css } from '@emotion/react'
+import { CSSInterpolation } from '@emotion/serialize'
 import { ReactNode } from 'react'
 import { Spacing, Color, TextColor, BorderRadius, theme } from '../theme'
 
 export type BoxProps = {
   children?: ReactNode
 
-  style?: SerializedStyles
+  style?: CSSInterpolation
 
   pad?: Spacing
   padVertical?: Spacing

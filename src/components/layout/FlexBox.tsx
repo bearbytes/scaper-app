@@ -49,7 +49,7 @@ function FlexBox(props: FlexBoxProps) {
     gap: theme.spacing[gap],
   })
 
-  return <Box {...boxProps} style={flexBoxStyle} />
+  return <Box {...boxProps} style={[flexBoxStyle, props.style]} />
 }
 
 export function Row(props: Omit<FlexBoxProps, 'flexDirection'>) {
