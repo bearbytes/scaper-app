@@ -1,4 +1,5 @@
 import { Column, Grid, Label, Row } from '@components'
+import { Masonry } from 'masonic'
 import { GetStaticPropsContext } from 'next'
 import React from 'react'
 import { Card } from '../components/display/Card'
@@ -20,11 +21,12 @@ type Person = {
 
 export default function Index({ teams }: TeamPageProps) {
   return (
-    <Grid columnWidth={300} gap="M">
-      {teams.map(team => (
-        <TeamBlock key={team.name} team={team} />
-      ))}
-    </Grid>
+    <Masonry
+      items={teams}
+      columnGutter={8}
+      columnWidth={300}
+      render={({ data: team }) => <TeamBlock team={team} />}
+    />
   )
 }
 

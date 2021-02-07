@@ -1,19 +1,9 @@
 import { entries, groupBy, map } from 'lodash'
 import { GetStaticPropsContext } from 'next'
 import React from 'react'
-import {
-  Card,
-  Column,
-  Grid,
-  Icon,
-  Label,
-  Row,
-  Spacer,
-  Table,
-} from '@components'
+import { Card, Grid, Label, Table } from '@components'
 import { prisma } from '../lib/prisma'
-import { Stack } from '../components/layout/Stack'
-import { StarRating } from '../components/display/StarRating'
+import { Masonry } from 'masonic'
 
 type SkillsPageProps = {
   categories: Category[]
@@ -32,11 +22,12 @@ type Skill = {
 
 export default function SkillsPage(props: SkillsPageProps) {
   return (
-    <Grid columnWidth={300} gap="M">
-      {props.categories.map(category => (
-        <CategoryBlock key={category.categoryName} category={category} />
-      ))}
-    </Grid>
+    <Masonry
+      items={props.categories}
+      columnGutter={8}
+      columnWidth={250}
+      render={({ data }) => <CategoryBlock category={data} />}
+    />
   )
 }
 
@@ -56,17 +47,29 @@ function CategoryBlock(props: { category: Category }) {
           },
           {
             renderCell: skill => (
-              <Label padLeft="S" text={skill.skillCount1.toString()} />
+              <Label
+                alignRight
+                padLeft="S"
+                text={skill.skillCount1.toString()}
+              />
             ),
           },
           {
             renderCell: skill => (
-              <Label padLeft="S" text={skill.skillCount2.toString()} />
+              <Label
+                alignRight
+                padLeft="S"
+                text={skill.skillCount2.toString()}
+              />
             ),
           },
           {
             renderCell: skill => (
-              <Label padLeft="S" text={skill.skillCount3.toString()} />
+              <Label
+                alignRight
+                padLeft="S"
+                text={skill.skillCount3.toString()}
+              />
             ),
           },
         ]}
@@ -75,7 +78,7 @@ function CategoryBlock(props: { category: Category }) {
   )
 }
 
-export async function getStaticProps(ctx: GetStaticPropsContext) {
+export async function getStaticProps() {
   const skills = await prisma.skill.findMany({
     include: {
       category: true,

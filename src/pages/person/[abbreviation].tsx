@@ -3,6 +3,7 @@ import React from 'react'
 import { Card, Column, Grid, Label, Row, StarRating } from '@components'
 import { prisma } from '../../lib/prisma'
 import { entries, groupBy, map } from 'lodash'
+import { Masonry } from 'masonic'
 
 type PersonPageProps = {
   name: string
@@ -30,14 +31,12 @@ export default function PersonPage(props: PersonPageProps) {
       {props.teamRoles.map(({ teamName, roleName }) => (
         <Label key={roleName} text={`${roleName} in ${teamName}`} />
       ))}
-      <Grid columnWidth={250} gap="M">
-        {props.skillCategories.map(skillCategory => (
-          <SkillCategoryBlock
-            key={skillCategory.categoryName}
-            skillCategory={skillCategory}
-          />
-        ))}
-      </Grid>
+      <Masonry
+        columnGutter={8}
+        columnWidth={250}
+        items={props.skillCategories}
+        render={({ data }) => <SkillCategoryBlock skillCategory={data} />}
+      />
     </Column>
   )
 }

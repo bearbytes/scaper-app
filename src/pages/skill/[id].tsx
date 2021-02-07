@@ -4,6 +4,7 @@ import { Card, Column, Grid, Label, Row, StarRating } from '@components'
 import { prisma } from '../../lib/prisma'
 import { GiTreasureMap } from 'react-icons/gi'
 import { entries, first, groupBy, map } from 'lodash'
+import { Masonry } from 'masonic'
 
 type SkillPageProps = {
   skillName: string
@@ -27,11 +28,12 @@ export default function SkillPage(props: SkillPageProps) {
     <Column gap="M">
       <Label bold large text={props.skillName} />
       <Label text={props.categoryName} />
-      <Grid columnWidth={250} gap="M">
-        {props.teams.map(team => (
-          <TeamBlock key={team.teamName} team={team} />
-        ))}
-      </Grid>
+      <Masonry
+        columnGutter={8}
+        columnWidth={250}
+        items={props.teams}
+        render={({ data }) => <TeamBlock team={data} />}
+      />
     </Column>
   )
 }

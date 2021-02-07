@@ -8,7 +8,7 @@ import { SideBarButton } from './SideBarButton'
 export function SideBar() {
   return (
     <Column color="elevated" gap="M" pad="M">
-      <SideBarButton icon={RiTeamLine} text="Teams" linkTo="/team" />
+      <SideBarButton icon={RiTeamLine} text="Teams" linkTo="/teams" />
       <SideBarButton icon={GiSkills} text="Skills" linkTo="/skills" />
       <Spacer />
       <SideBarButton
