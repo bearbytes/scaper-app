@@ -7,9 +7,9 @@ export const theme = {
     text: '#eee'
   },
   fontSize: {
-    small: '1em',
-    medium: '2em',
-    large: '3em',
+    default: '1em',
+    small: '0.7em',
+    large: '2em',
   },
   spacing: {
     none: 0,

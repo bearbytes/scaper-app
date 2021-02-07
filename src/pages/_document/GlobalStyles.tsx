@@ -6,7 +6,7 @@ const globalStyles = css`
     padding: 0;
     margin: 0;
     font-family: Pompiere;
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 `
 
