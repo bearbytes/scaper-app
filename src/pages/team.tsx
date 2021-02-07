@@ -4,9 +4,19 @@ import React from 'react'
 import { Card } from '../components/display/Card'
 import { prisma } from '../lib/prisma'
 
-type IndexPageProps = { teams: Team[] }
-type Team = { name: string; description: string; people: Person[] }
-type Person = { abbreviation: string; name: string; role: string }
+type IndexPageProps = {
+  teams: Team[]
+}
+type Team = {
+  name: string
+  description: string
+  people: Person[]
+}
+type Person = {
+  abbreviation: string
+  name: string
+  role: string
+}
 
 export default function Index({ teams }: IndexPageProps) {
   return (
@@ -33,7 +43,7 @@ function TeamBlock({ team }: { team: Team }) {
 }
 
 function PersonBlock({ person }: { person: Person }) {
-  const linkTo = '/people/' + person.abbreviation
+  const linkTo = '/person/' + person.abbreviation
   return (
     <Grid gap="S" columns="40px 1fr 100px">
       <Label width={40} text={person.abbreviation} linkTo={linkTo} />
@@ -45,7 +55,7 @@ function PersonBlock({ person }: { person: Person }) {
   return
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(ctx: GetStaticPropsContext) {
   const teamsWithPersons = await prisma.team.findMany({
     include: {
       person_team_role: {

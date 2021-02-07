@@ -1,0 +1,117 @@
+import { GetStaticPathsContext, GetStaticPropsContext } from 'next'
+import { useRouter } from 'next/router'
+import React from 'react'
+import { Card, Column, Grid, Label, Row, Table } from '@components'
+import { prisma } from '../../lib/prisma'
+import { entries, groupBy } from 'lodash'
+import { StarRating } from '../../components/display/StarRating'
+
+type PersonPageProps = {
+  name: string
+  teamRoles: TeamRole[]
+  skillCategories: SkillCategory[]
+}
+type TeamRole = {
+  teamName: string
+  roleName: string
+}
+type SkillCategory = {
+  categoryName: string
+  skills: Skill[]
+}
+type Skill = {
+  skillName: string
+  level: number
+}
+
+export default function PersonPage(props: PersonPageProps) {
+  return (
+    <Column gap="M">
+      <Label large text={props.name} />
+      {props.teamRoles.map(({ teamName, roleName }) => (
+        <Label key={roleName} text={`${roleName} in ${teamName}`} />
+      ))}
+      <Grid columnWidth={250} gap="M">
+        {props.skillCategories.map(skillCategory => (
+          <SkillCategoryBlock
+            key={skillCategory.categoryName}
+            skillCategory={skillCategory}
+          />
+        ))}
+      </Grid>
+    </Column>
+  )
+}
+
+function SkillCategoryBlock(props: { skillCategory: SkillCategory }) {
+  const { categoryName, skills } = props.skillCategory
+
+  return (
+    <Card>
+      <Label padBottom="M" bold text={categoryName} />
+      {skills.map(({ skillName, level }) => (
+        <Row key={skillName} gap="M">
+          <StarRating rating={level} max={3} />
+          <Label text={skillName} />
+        </Row>
+      ))}
+    </Card>
+  )
+}
+
+export async function getStaticProps(ctx: GetStaticPropsContext) {
+  const abbreviation = ctx.params.abbreviation as string
+
+  const person = await prisma.person.findFirst({
+    where: { abbreviation },
+    include: {
+      person_certificate: true,
+      person_team_role: {
+        include: {
+          team: true,
+          role: true,
+        },
+      },
+      person_skill: {
+        include: {
+          level: true,
+          skill: {
+            include: {
+              category: true,
+            },
+          },
+        },
+      },
+    },
+  })
+
+  const props: PersonPageProps = {
+    name: `${person.firstname} ${person.lastname}`,
+
+    teamRoles: person.person_team_role.map(({ team, role }) => ({
+      teamName: team.name,
+      roleName: role.role,
+    })),
+
+    skillCategories: entries(
+      groupBy(person.person_skill, it => it.skill.category.name),
+    ).map(([categoryName, personSkills]) => ({
+      categoryName,
+      skills: personSkills.map(({ skill, level }) => ({
+        skillName: skill.name,
+        level: level.level,
+      })),
+    })),
+  }
+
+  return { props }
+}
+
+export async function getStaticPaths(ctx: GetStaticPathsContext) {
+  const persons = await prisma.person.findMany()
+  const paths = persons.map(({ abbreviation }) => ({
+    params: { abbreviation },
+  }))
+
+  return { paths, fallback: false }
+}
