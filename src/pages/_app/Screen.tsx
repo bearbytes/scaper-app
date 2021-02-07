@@ -7,13 +7,11 @@ export function Screen(props: { children: ReactNode }) {
     <Row
       color={'background'}
       height={'100vh'}
-      style={{
-        overflow: 'hidden',
-      }}
+      style={{ overflow: 'hidden' }}
       textColor={'text'}
     >
       <SideBar />
-      <Box flex pad="M">
+      <Box flex pad="M" style={{ overflowY: 'scroll' }}>
         {props.children}
       </Box>
     </Row>

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { Card, Column, Grid, Label, Row, Table } from '@components'
 import { prisma } from '../../lib/prisma'
-import { entries, groupBy } from 'lodash'
+import { entries, groupBy, map } from 'lodash'
 import { StarRating } from '../../components/display/StarRating'
 
 type PersonPageProps = {
@@ -93,15 +93,16 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
       roleName: role.role,
     })),
 
-    skillCategories: entries(
-      groupBy(person.person_skill, it => it.skill.category.name),
-    ).map(([categoryName, personSkills]) => ({
-      categoryName,
-      skills: personSkills.map(({ skill, level }) => ({
-        skillName: skill.name,
-        level: level.level,
-      })),
-    })),
+    skillCategories: map(
+      entries(groupBy(person.person_skill, it => it.skill.category.name)),
+      ([categoryName, personSkills]) => ({
+        categoryName,
+        skills: personSkills.map(({ skill, level }) => ({
+          skillName: skill.name,
+          level: level.level,
+        })),
+      }),
+    ),
   }
 
   return { props }

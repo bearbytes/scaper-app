@@ -4,7 +4,7 @@ import React from 'react'
 import { Card } from '../components/display/Card'
 import { prisma } from '../lib/prisma'
 
-type IndexPageProps = {
+type TeamPageProps = {
   teams: Team[]
 }
 type Team = {
@@ -18,7 +18,7 @@ type Person = {
   role: string
 }
 
-export default function Index({ teams }: IndexPageProps) {
+export default function Index({ teams }: TeamPageProps) {
   return (
     <Grid columnWidth={300} gap="M">
       {teams.map(team => (
@@ -67,7 +67,7 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
     },
   })
 
-  const props: IndexPageProps = {
+  const props: TeamPageProps = {
     teams: teamsWithPersons.map(({ name, description, person_team_role }) => ({
       name,
       description,
