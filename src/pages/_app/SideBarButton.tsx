@@ -2,15 +2,26 @@ import React from 'react'
 import { IconButton } from '@components'
 import { IconType } from 'react-icons'
 
-export function SideBarButton(props: { icon: IconType; text: string }) {
+type SideBarButtonProps = {
+  icon: IconType
+  text: string
+  linkTo: string
+}
+
+export function SideBarButton(props: SideBarButtonProps) {
+  const { icon, text, linkTo } = props
+
   return (
     <IconButton
       width={65}
       height={65}
       color="background"
-      icon={props.icon}
+      icon={icon}
       iconSize={'XL'}
-      text={props.text}
+      text={text}
+      onPress={() => {
+        window.location.href = linkTo
+      }}
     />
   )
 }

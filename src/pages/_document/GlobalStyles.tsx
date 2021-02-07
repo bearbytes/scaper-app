@@ -8,6 +8,10 @@ const globalStyles = css`
     font-family: Roboto;
     font-size: 1em;
   }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `
 
 export function GlobalStyles() {

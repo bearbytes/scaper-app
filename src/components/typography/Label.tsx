@@ -1,9 +1,9 @@
 import { css } from '@emotion/react'
-import { CSSInterpolation, CSSObject } from '@emotion/serialize'
+import { CSSObject } from '@emotion/serialize'
 import React from 'react'
-import { IoCubeOutline } from 'react-icons/io5'
 import { Box, BoxProps } from '../layout/Box'
 import { theme } from '../theme'
+import Link from 'next/link'
 
 export type LabelProps = BoxProps & {
   text: string
@@ -14,6 +14,8 @@ export type LabelProps = BoxProps & {
 
   small?: boolean
   large?: boolean
+
+  linkTo?: string
 }
 export function Label(props: LabelProps) {
   const {
@@ -24,6 +26,7 @@ export function Label(props: LabelProps) {
     small,
     large,
     style,
+    linkTo,
     ...boxProps
   } = props
 
@@ -42,7 +45,13 @@ export function Label(props: LabelProps) {
 
   return (
     <Box {...boxProps} style={[labelStyle, style]}>
-      {props.text}
+      {linkTo ? (
+        <Link href={linkTo}>
+          <a>{text}</a>
+        </Link>
+      ) : (
+        text
+      )}
     </Box>
   )
 }

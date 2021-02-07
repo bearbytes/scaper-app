@@ -33,10 +33,11 @@ function TeamBlock({ team }: { team: Team }) {
 }
 
 function PersonBlock({ person }: { person: Person }) {
+  const linkTo = '/people/' + person.abbreviation
   return (
     <Grid gap="S" columns="40px 1fr 100px">
-      <Label width={40} text={person.abbreviation} />
-      <Label flex={2} text={person.name} />
+      <Label width={40} text={person.abbreviation} linkTo={linkTo} />
+      <Label flex={2} text={person.name} linkTo={linkTo} />
       <Label flex={1} text={person.role} />
     </Grid>
   )
