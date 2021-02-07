@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "11.1.1",
     "@emotion/styled": "11.0.0",
+    "@prisma/client": "^2.16.0",
     "next": "^10.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@emotion/babel-plugin": "11.0.0",
     "barrelsby": "^2.2.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "prisma": "^2.16.0"
   }
 }

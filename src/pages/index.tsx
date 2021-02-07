@@ -1,11 +1,36 @@
 import { Box, Column, Label, Row } from '@components'
-import { FaBeer } from 'react-icons/fa'
-import { Button } from '../components/button/Button'
+import { GetServerSidePropsContext } from 'next'
+import { prisma } from '../lib/prisma'
 
-export default function Index() {
+type IndexPageProps = {
+  teams: string[]
+}
+
+export default function Index(props: IndexPageProps) {
   return (
-    <Row>
-      <Button icon={FaBeer} text="ButtonText" />
-    </Row>
+    <Column>
+      {props.teams.map(team => (
+        <Label key={team} text={team} />
+      ))}
+    </Column>
   )
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const teamsWithPersons = await prisma.team.findMany({
+    include: {
+      person_team_role: {
+        include: {
+          person: true,
+          role: true,
+        },
+      },
+    },
+  })
+
+  const props: IndexPageProps = {
+    teams: teamsWithPersons.map(it => it.name),
+  }
+
+  return { props }
 }

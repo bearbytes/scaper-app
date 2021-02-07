@@ -2,7 +2,8 @@ import { css, Global } from '@emotion/react'
 import React, { ReactNode } from 'react'
 import { Box, Column, Row, IconButton } from '@components'
 import { IconType } from 'react-icons'
-import { IoCubeOutline, RiPlantLine } from 'react-icons/all'
+import { IoCubeOutline } from 'react-icons/io5'
+import { RiPlantLine } from 'react-icons/ri'
 
 const globalStyles = css`
   html,
