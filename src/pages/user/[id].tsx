@@ -1,5 +1,6 @@
 import { GetStaticPathsContext, GetStaticPropsContext } from 'next'
-import { Column, Label } from '../../components'
+import React from 'react'
+import { Avatar, Column, Icon, Label, Row, Spacer } from '../../components'
 import { prisma } from '../../lib/prisma'
 import { StaticProps } from '../../lib/types'
 
@@ -17,10 +18,12 @@ export async function getStaticPaths(ctx: GetStaticPathsContext) {
   return { paths, fallback: true }
 }
 
-export default function UserPage({ user }: StaticProps<typeof getStaticProps>) {
+export default function UserPage(props: StaticProps<typeof getStaticProps>) {
+  const { user } = props
   return (
-    <Column>
+    <Row alignCenterVertical gap="S">
+      <Avatar size="S" url={user.avatarUrl} />
       <Label large text={user.name} />
-    </Column>
+    </Row>
   )
 }

@@ -8,10 +8,11 @@ generator client {
 }
 
 model User {
-  id    String @id @default(uuid())
-  name  String
-  email String
-  tanks Tank[]
+  id        String  @id @default(uuid())
+  name      String
+  email     String
+  avatarUrl String?
+  tanks     Tank[]
 }
 
 model Tank {

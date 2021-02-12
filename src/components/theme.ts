@@ -1,11 +1,11 @@
 export const theme = {
   color: {
-    background: '#000',
-    elevated: '#caa',
+    background: '#cbb',
+    elevated: '#a44',
   },
   textColor: {
-    text: '#eee',
-    inverted: '#1f1f00',
+    text: '#000',
+    inverted: '#eee',
   },
   fontSize: {
     default: '1em',
@@ -25,14 +25,19 @@ export const theme = {
   borderRadius: {
     none: 0,
     S: 4,
-    M: 8
+    M: 8,
   },
   iconSize: {
     S: 12,
     M: 18,
     L: 24,
     XL: 36,
-  }
+  },
+  avatarSize: {
+    S: 36,
+    M: 72,
+    L: 144,
+  },
 }
 
 export type Theme = typeof theme
@@ -42,4 +47,4 @@ export type TextColor = keyof Theme['textColor']
 export type FontSize = keyof Theme['fontSize']
 export type BorderRadius = keyof Theme['borderRadius']
 export type IconSize = keyof Theme['iconSize']
-
+export type AvatarSize = keyof Theme['avatarSize']

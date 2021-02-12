@@ -5,11 +5,13 @@ import { Box, BoxProps } from './Box'
 export type FlexBoxProps = BoxProps & {
   flexDirection: 'row' | 'column'
 
+  alignCenter?: boolean
   alignLeft?: boolean
   alignRight?: boolean
-  alignCenter?: boolean
+  alignCenterVertical?: boolean
   alignTop?: boolean
   alignBottom?: boolean
+  alignCenterHorizontal?: boolean
 
   spaceBetween?: boolean
   spaceEvenly?: boolean
@@ -20,11 +22,14 @@ export type FlexBoxProps = BoxProps & {
 function FlexBox(props: FlexBoxProps) {
   const {
     flexDirection,
+
+    alignCenter,
     alignLeft,
     alignRight,
+    alignCenterVertical,
     alignTop,
     alignBottom,
-    alignCenter,
+    alignCenterHorizontal,
 
     spaceBetween,
     spaceEvenly,
@@ -34,12 +39,12 @@ function FlexBox(props: FlexBoxProps) {
   } = props
 
   let alignHorizontal: string
-  if (alignCenter) alignHorizontal = 'center'
+  if (alignCenter || alignCenterHorizontal) alignHorizontal = 'center'
   else if (alignLeft) alignHorizontal = 'flex-start'
   else if (alignRight) alignHorizontal = 'flex-end'
 
   let alignVertical: string
-  if (alignCenter) alignVertical = 'center'
+  if (alignCenter || alignCenterVertical) alignVertical = 'center'
   else if (alignTop) alignVertical = 'flex-start'
   else if (alignBottom) alignVertical = 'flex-end'
 

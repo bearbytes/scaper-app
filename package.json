@@ -7,7 +7,8 @@
     "postinstall": "prisma generate",
     "build": "next build",
     "start": "next start",
-    "barrels": "npx barrelsby --delete --directory src/components --location top --singleQuotes --noSemicolon"
+    "barrels": "npx barrelsby --delete --directory src/components --location top --singleQuotes --noSemicolon",
+    "prisma": "npx prisma db push --preview-feature"
   },
   "dependencies": {
     "@emotion/react": "11.1.1",

@@ -5,6 +5,7 @@
 export * from './theme'
 export * from './button/Button'
 export * from './button/IconButton'
+export * from './display/Avatar'
 export * from './display/Card'
 export * from './display/Icon'
 export * from './display/List'
