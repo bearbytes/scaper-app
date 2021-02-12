@@ -1,108 +1,21 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgres://hutjdwertgzjpc:5171047c79c66768d34e4f774fc97b3e3f118f70e9435bb516ace9ba4227399a@ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/d2b35gg5r1muik"
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = "postgres://postgres:axtesys@axtesys.dev:27624/skillmatrix"
-}
-
-model category {
-  id    Int     @id @default(autoincrement())
+model User {
+  id    String @id @default(uuid())
   name  String
-  skill skill[]
+  email String
+  tanks Tank[]
 }
 
-model certificate {
-  id                 Int                  @id @default(autoincrement())
-  name               String
-  description        String
-  person_certificate person_certificate[]
-}
-
-model flyway_schema_history {
-  installed_rank Int      @id
-  version        String?
-  description    String
-  type           String
-  script         String
-  checksum       Int?
-  installed_by   String
-  installed_on   DateTime @default(now())
-  execution_time Int
-  success        Boolean
-
-  @@index([success], name: "flyway_schema_history_s_idx")
-}
-
-model level {
-  id           Int            @id @default(autoincrement())
-  level        Int
-  description  String?
-  person_skill person_skill[]
-}
-
-model person {
-  id                 Int                  @id @default(autoincrement())
-  firstname          String
-  lastname           String
-  abbreviation       String
-  person_certificate person_certificate[]
-  person_skill       person_skill[]
-  person_team_role   person_team_role[]
-}
-
-model person_certificate {
-  person_id      Int
-  certificate_id Int
-  valid_from     DateTime
-  valid_to       DateTime
-  certificate    certificate @relation(fields: [certificate_id], references: [id])
-  person         person      @relation(fields: [person_id], references: [id])
-
-  @@id([person_id, certificate_id])
-}
-
-model person_skill {
-  person_id Int
-  skill_id  Int
-  level_id  Int
-  level     level  @relation(fields: [level_id], references: [id])
-  person    person @relation(fields: [person_id], references: [id])
-  skill     skill  @relation(fields: [skill_id], references: [id])
-
-  @@id([person_id, skill_id])
-}
-
-model person_team_role {
-  person_id Int
-  team_id   Int
-  role_id   Int
-  person    person @relation(fields: [person_id], references: [id])
-  role      role   @relation(fields: [role_id], references: [id])
-  team      team   @relation(fields: [team_id], references: [id])
-
-  @@id([person_id, team_id, role_id])
-}
-
-model role {
-  id               Int                @id @default(autoincrement())
-  role             String
-  description      String
-  person_team_role person_team_role[]
-}
-
-model skill {
-  id           Int            @id @default(autoincrement())
-  name         String
-  category_id  Int
-  category     category       @relation(fields: [category_id], references: [id])
-  person_skill person_skill[]
-}
-
-model team {
-  id               Int                @id @default(autoincrement())
-  name             String
-  description      String
-  person_team_role person_team_role[]
+model Tank {
+  id      Int    @id @default(autoincrement())
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
 }
