@@ -6,9 +6,19 @@ import { prisma } from '../lib/prisma'
 import { StaticProps } from '../lib/types'
 
 export async function getStaticProps(ctx: GetStaticPropsContext) {
-  return { props: {} }
+  const users = await prisma.user.findMany({})
+  return { props: { users } }
 }
 
 export default function IndexPage(props: StaticProps<typeof getStaticProps>) {
-  return <p>Index</p>
+  return (
+    <List
+      rows={props.users}
+      renderRow={user => (
+        <Link key={user.id} href={'/user/' + user.id}>
+          <a>{user.name}</a>
+        </Link>
+      )}
+    />
+  )
 }
