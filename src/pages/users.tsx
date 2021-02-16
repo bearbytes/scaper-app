@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client'
 import { GetStaticPropsContext } from 'next'
 import Link from 'next/link'
 import React from 'react'
@@ -8,47 +7,46 @@ import {
   useCreateUserMutation,
   useDeleteUserMutation,
   useListUsersQuery,
+  User,
 } from '../graphql/generated/client-types'
 import { db } from '../lib/db'
 import { StaticProps } from '../lib/types'
 import { FiTrash } from 'react-icons/fi'
 
-export async function getStaticProps(ctx: GetStaticPropsContext) {
-  const users = await db.user.findMany({})
-  return { props: { users } }
-}
-
-export default function IndexPage(props: StaticProps<typeof getStaticProps>) {
-  const [deleteUser] = useDeleteUserMutation()
+export default function IndexPage() {
+  const { data } = useListUsersQuery()
+  const users = data?.users ?? []
 
   return (
-    <Column>
+    <Column maxWidth={300}>
       <CreateUserButton />
       <List
-        rows={props.users}
-        renderRow={user => (
-          <Row>
-            <Link key={user.id} href={'/user/' + user.id}>
-              <a>{user.name}</a>
-            </Link>
-            <IconButton
-              icon={FiTrash}
-              onPress={() => deleteUser({ variables: { id: user.id } })}
-            />
-          </Row>
-        )}
+        rows={users}
+        keySelector={user => user.id}
+        renderRow={user => <UserRow user={user} />}
       />
     </Column>
   )
 }
 
-function CreateUserButton() {
+function UserRow(props: { user: User }) {
+  const { user } = props
+  const [deleteUser] = useDeleteUserMutation({ refetchQueries: ['listUsers'] })
+
   return (
-    <Button
-      onPress={() => {
-        rpcClient.createUser()
-      }}
-      text="Create User"
-    />
+    <Row spaceBetween>
+      <Link key={user.id} href={'/user/' + user.id}>
+        <a>{user.name}</a>
+      </Link>
+      <IconButton
+        icon={FiTrash}
+        onPress={() => deleteUser({ variables: { id: user.id } })}
+      />
+    </Row>
   )
+}
+
+function CreateUserButton() {
+  const [createUser] = useCreateUserMutation({ refetchQueries: ['listUsers'] })
+  return <Button onPress={createUser} text="Create User" />
 }

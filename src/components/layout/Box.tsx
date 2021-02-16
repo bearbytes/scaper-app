@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import { CSSInterpolation } from '@emotion/serialize'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import { Spacing, Color, TextColor, BorderRadius, theme } from '../theme'
 
 export type BoxProps = {
@@ -31,7 +31,7 @@ export type BoxProps = {
   shadowColor?: Color
   borderRadius?: BorderRadius
 
-  onPress?(): void
+  onPress?(): void | Promise<void>
 }
 
 export function Box(props: BoxProps) {
