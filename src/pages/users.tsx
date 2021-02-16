@@ -8,11 +8,11 @@ import {
   useCreateUserMutation,
   useListUsersQuery,
 } from '../graphql/generated/client-types'
-import { prisma } from '../lib/prisma'
+import { db } from '../lib/db'
 import { StaticProps } from '../lib/types'
 
 export async function getStaticProps(ctx: GetStaticPropsContext) {
-  const users = await prisma.user.findMany({})
+  const users = await db.user.findMany({})
   return { props: { users } }
 }
 

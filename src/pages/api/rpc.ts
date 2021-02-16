@@ -1,11 +1,11 @@
 import faker from 'faker'
 import { rpcServer } from '../../api/rpcServer'
-import { prisma } from '../../lib/prisma'
+import { db } from '../../lib/db'
 
 export default rpcServer({
   createUser() {
     const email = faker.internet.email()
-    return prisma.user.create({
+    return db.user.create({
       data: {
         email: faker.internet.email(),
         name: faker.name.firstName(),
@@ -15,6 +15,6 @@ export default rpcServer({
   },
 
   listUsers() {
-    return prisma.user.findMany()
+    return db.user.findMany()
   },
 })
