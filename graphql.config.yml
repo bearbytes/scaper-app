@@ -1,6 +1,7 @@
-schema: src/api/graphql/generated/schema.gql
+schema: src/graphql/schema.gql
+documents: src/**/*.tsx
 generates:
-  src/api/graphql/generated/client.ts:
+  src/graphql/client-types.ts:
     plugins:
       - typescript
       - typescript-operations

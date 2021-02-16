@@ -31,8 +31,8 @@ const Mutation = mutationType({
 const schema = makeSchema({
   types: [Query, Mutation],
   outputs: {
-    schema: path.join(__dirname, 'generated/schema.gql'),
-    typegen: path.join(__dirname, 'generated/types.ts'),
+    schema: path.join(__dirname, '../../graphql/schema.gql'),
+    typegen: path.join(__dirname, '../../graphql/nexus-types.ts'),
   },
 })
 

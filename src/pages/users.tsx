@@ -1,6 +1,8 @@
+import { gql } from '@apollo/client'
 import { GetStaticPropsContext } from 'next'
 import Link from 'next/link'
 import React from 'react'
+import { useCreateUserMutation } from '../graphql/client'
 import { Button, Column, List } from '../components'
 import { prisma } from '../lib/prisma'
 import { StaticProps } from '../lib/types'
@@ -26,6 +28,13 @@ export default function IndexPage(props: StaticProps<typeof getStaticProps>) {
   )
 }
 
+gql`
+  mutation createUser {
+    createUser
+  }
+`
+
 function CreateUserButton() {
-  return <Button onPress={undefined} text="Create User" />
+  const [createUser, { data }] = useCreateUserMutation()
+  return <Button onPress={createUser} text="Create User" />
 }
