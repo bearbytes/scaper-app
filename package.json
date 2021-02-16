@@ -9,7 +9,8 @@
     "start": "next start",
     "barrels": "npx barrelsby --delete --directory src/components --location top --singleQuotes --noSemicolon",
     "prisma": "npx prisma db push --preview-feature",
-    "nexus": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' --transpile-only src/api/graphql/index.ts"
+    "nexus": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' --transpile-only src/api/graphql/index.ts",
+    "apollo": "graphql-codegen -c graphql.config.yml"
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
@@ -30,6 +31,10 @@
   },
   "devDependencies": {
     "@emotion/babel-plugin": "11.0.0",
+    "@graphql-codegen/cli": "^1.20.1",
+    "@graphql-codegen/typescript": "^1.21.0",
+    "@graphql-codegen/typescript-operations": "^1.17.14",
+    "@graphql-codegen/typescript-react-apollo": "^2.2.1",
     "@types/faker": "^5.1.6",
     "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.25",

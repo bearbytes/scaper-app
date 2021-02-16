@@ -1,6 +1,8 @@
-import { makeSchema, queryType } from 'nexus'
+import { makeSchema, mutationType, queryType } from 'nexus'
 import { ApolloServer } from 'apollo-server-micro'
 import path from 'path'
+import { prisma } from '../../lib/prisma'
+import faker from 'faker'
 
 const Query = queryType({
   definition(t) {
@@ -8,11 +10,29 @@ const Query = queryType({
   },
 })
 
+const Mutation = mutationType({
+  definition(t) {
+    t.boolean('createUser', {
+      async resolve() {
+        const email = faker.internet.email()
+        await prisma.user.create({
+          data: {
+            email: faker.internet.email(),
+            name: faker.name.firstName(),
+            avatarUrl: 'https://i.pravatar.cc/150?u=' + email,
+          },
+        })
+        return true
+      },
+    })
+  },
+})
+
 const schema = makeSchema({
-  types: [Query],
+  types: [Query, Mutation],
   outputs: {
-    schema: path.join(__dirname, '../../generated/schema.gql'),
-    typegen: path.join(__dirname, '../../generated/types.ts'),
+    schema: path.join(__dirname, 'generated/schema.gql'),
+    typegen: path.join(__dirname, 'generated/types.ts'),
   },
 })
 
@@ -27,17 +47,3 @@ export const config = {
 export default server.createHandler({
   path: '/api/graphql',
 })
-
-// import { prisma } from '../lib/prisma'
-// import faker from 'faker'
-
-// export async function createUser() {
-//   const email = faker.internet.email()
-//   await prisma.user.create({
-//     data: {
-//       email: faker.internet.email(),
-//       name: faker.name.firstName(),
-//       avatarUrl: 'https://i.pravatar.cc/150?u=' + email,
-//     },
-//   })
-// }
