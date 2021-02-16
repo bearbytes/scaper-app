@@ -8,17 +8,22 @@
     "build": "next build",
     "start": "next start",
     "barrels": "npx barrelsby --delete --directory src/components --location top --singleQuotes --noSemicolon",
-    "prisma": "npx prisma db push --preview-feature"
+    "prisma": "npx prisma db push --preview-feature",
+    "nexus": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' --transpile-only src/api/graphql/index.ts"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.11",
     "@emotion/react": "11.1.1",
     "@emotion/serialize": "^1.0.0",
     "@emotion/styled": "11.0.0",
     "@prisma/client": "^2.16.0",
+    "apollo-server-micro": "^2.21.0",
     "faker": "^5.4.0",
+    "graphql": "^15.5.0",
     "lodash": "^4.17.20",
     "masonic": "^3.4.0",
     "next": "^10.0.0",
+    "nexus": "^1.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.1.0"
@@ -32,6 +37,7 @@
     "barrelsby": "^2.2.0",
     "prettier": "^2.2.1",
     "prisma": "^2.16.0",
+    "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   }
 }
