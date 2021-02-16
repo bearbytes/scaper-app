@@ -1,5 +1,5 @@
 schema: src/graphql/generated/schema.gql
-documents: src/**/*.tsx
+documents: src/graphql/operations/*.gql
 generates:
   src/graphql/generated/client-types.ts:
     plugins:

@@ -15,7 +15,7 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createUser?: Maybe<Scalars['Boolean']>;
+  createUser?: Maybe<User>;
 };
 
 export type Query = {
@@ -23,18 +23,29 @@ export type Query = {
   hello?: Maybe<Scalars['String']>;
 };
 
+export type User = {
+  __typename?: 'User';
+  email?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
 export type CreateUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CreateUserMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'createUser'>
+  & { createUser?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'name'>
+  )> }
 );
 
 
 export const CreateUserDocument = gql`
     mutation createUser {
-  createUser
+  createUser {
+    name
+  }
 }
     `;
 export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;

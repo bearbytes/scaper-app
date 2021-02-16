@@ -28,12 +28,6 @@ export default function IndexPage(props: StaticProps<typeof getStaticProps>) {
   )
 }
 
-gql`
-  mutation createUser {
-    createUser
-  }
-`
-
 function CreateUserButton() {
   const [createUser, { data }] = useCreateUserMutation()
   return <Button onPress={createUser} text="Create User" />
