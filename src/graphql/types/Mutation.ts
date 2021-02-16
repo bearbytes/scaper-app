@@ -1,6 +1,7 @@
 import faker from 'faker'
-import { mutationType } from 'nexus'
-import { prisma } from '../lib/prisma'
+import { mutationField, mutationType } from 'nexus'
+import { prisma } from '../../lib/prisma'
+import { User } from './User'
 
 export const Mutation = mutationType({
   definition(t) {

@@ -7,12 +7,7 @@
 
 
 
-declare global {
-  interface NexusGenCustomOutputProperties<TypeName extends string> {
-    model: NexusPrisma<TypeName, 'model'>
-    crud: any
-  }
-}
+
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
@@ -35,6 +30,10 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Mutation: {};
   Query: {};
+  User: { // root type
+    email?: string | null; // String
+    name?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -54,6 +53,10 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     hello: string | null; // String
   }
+  User: { // field return type
+    email: string | null; // String
+    name: string | null; // String
+  }
 }
 
 export interface NexusGenFieldTypeNames {
@@ -62,6 +65,10 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     hello: 'String'
+  }
+  User: { // field return type name
+    email: 'String'
+    name: 'String'
   }
 }
 

@@ -9,3 +9,8 @@ type Mutation {
 type Query {
   hello: String
 }
+
+type User {
+  email: String
+  name: String
+}
