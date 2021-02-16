@@ -10,3 +10,9 @@ mutation createUser {
     name
   }
 }
+
+mutation deleteUser($id: ID!) {
+  deleteUser(id: $id) {
+    name
+  }
+}

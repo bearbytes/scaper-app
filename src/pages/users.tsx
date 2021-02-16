@@ -3,13 +3,15 @@ import { GetStaticPropsContext } from 'next'
 import Link from 'next/link'
 import React from 'react'
 import { rpcClient } from '../api/rpcClient'
-import { Button, Column, List } from '../components'
+import { Button, Column, IconButton, List, Row } from '../components'
 import {
   useCreateUserMutation,
+  useDeleteUserMutation,
   useListUsersQuery,
 } from '../graphql/generated/client-types'
 import { db } from '../lib/db'
 import { StaticProps } from '../lib/types'
+import { FiTrash } from 'react-icons/fi'
 
 export async function getStaticProps(ctx: GetStaticPropsContext) {
   const users = await db.user.findMany({})
@@ -17,15 +19,23 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
 }
 
 export default function IndexPage(props: StaticProps<typeof getStaticProps>) {
+  const [deleteUser] = useDeleteUserMutation()
+
   return (
     <Column>
       <CreateUserButton />
       <List
         rows={props.users}
         renderRow={user => (
-          <Link key={user.id} href={'/user/' + user.id}>
-            <a>{user.name}</a>
-          </Link>
+          <Row>
+            <Link key={user.id} href={'/user/' + user.id}>
+              <a>{user.name}</a>
+            </Link>
+            <IconButton
+              icon={FiTrash}
+              onPress={() => deleteUser({ variables: { id: user.id } })}
+            />
+          </Row>
         )}
       />
     </Column>

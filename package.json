@@ -6,13 +6,13 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "build": "next build",
-    "start": "next start",
+    "start": "run-p *:watch dev",
     "barrels": "npx barrelsby --directory src/components --delete --location top --singleQuotes --noSemicolon",
     "prisma": "npx prisma db push --preview-feature",
     "nexus": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' --transpile-only src/graphql/schema.ts",
     "nexus:watch": "nodemon -w src/graphql/types -e ts -x \"npm run nexus\"",
     "apollo": "graphql-codegen -c graphql.config.yml",
-    "apollo:watch": "graphql-codegen -c -w graphql.config.yml"
+    "apollo:watch": "graphql-codegen -w -c graphql.config.yml"
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
