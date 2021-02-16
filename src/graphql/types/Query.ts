@@ -1,8 +1,14 @@
-import { queryType } from 'nexus'
+import { list, queryType } from 'nexus'
+import { prisma } from '../../lib/prisma'
 import { User } from './User'
 
 export const Query = queryType({
   definition(t) {
-    t.string('hello', { resolve: () => 'hello world!' })
+    t.list.field('users', {
+      type: User,
+      resolve() {
+        return prisma.user.findMany({})
+      },
+    })
   },
 })
