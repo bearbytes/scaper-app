@@ -1,8 +1,4 @@
 import { GetStaticPropsContext } from 'next'
-import Link from 'next/link'
-import React from 'react'
-import { Column, List } from '../components'
-import { prisma } from '../lib/prisma'
 import { StaticProps } from '../lib/types'
 
 export async function getStaticProps(ctx: GetStaticPropsContext) {

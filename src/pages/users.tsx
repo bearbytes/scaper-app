@@ -2,6 +2,7 @@ import { gql } from '@apollo/client'
 import { GetStaticPropsContext } from 'next'
 import Link from 'next/link'
 import React from 'react'
+import { rpcClient } from '../api/rpcClient'
 import { Button, Column, List } from '../components'
 import {
   useCreateUserMutation,
@@ -16,13 +17,11 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
 }
 
 export default function IndexPage(props: StaticProps<typeof getStaticProps>) {
-  const { data } = useListUsersQuery()
-
   return (
     <Column>
       <CreateUserButton />
       <List
-        rows={data?.users ?? []}
+        rows={props.users}
         renderRow={user => (
           <Link key={user.id} href={'/user/' + user.id}>
             <a>{user.name}</a>
@@ -34,8 +33,12 @@ export default function IndexPage(props: StaticProps<typeof getStaticProps>) {
 }
 
 function CreateUserButton() {
-  const [createUser, { data }] = useCreateUserMutation({
-    refetchQueries: ['listUsers'],
-  })
-  return <Button onPress={createUser} text="Create User" />
+  return (
+    <Button
+      onPress={() => {
+        rpcClient.createUser()
+      }}
+      text="Create User"
+    />
+  )
 }
