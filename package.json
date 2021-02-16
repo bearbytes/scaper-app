@@ -9,7 +9,7 @@
     "start": "next start",
     "barrels": "npx barrelsby --delete --directory src/components --location top --singleQuotes --noSemicolon",
     "prisma": "npx prisma db push --preview-feature",
-    "nexus": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' --transpile-only src/pages/api/graphql.ts",
+    "nexus": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' --transpile-only src/graphql/schema.ts",
     "apollo": "graphql-codegen -c graphql.config.yml"
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     "masonic": "^3.4.0",
     "next": "^10.0.0",
     "nexus": "^1.0.0",
+    "nexus-plugin-prisma": "^0.30.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.1.0"
