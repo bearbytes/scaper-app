@@ -1,7 +1,5 @@
-import { GetStaticPropsContext } from 'next'
 import Link from 'next/link'
 import React from 'react'
-import { rpcClient } from '../api/rpcClient'
 import { Button, Column, IconButton, List, Row } from '../components'
 import {
   useCreateUserMutation,
@@ -9,8 +7,6 @@ import {
   useListUsersQuery,
   User,
 } from '../graphql/generated/client-types'
-import { db } from '../lib/db'
-import { StaticProps } from '../lib/types'
 import { FiTrash } from 'react-icons/fi'
 
 export default function IndexPage() {
@@ -31,22 +27,29 @@ export default function IndexPage() {
 
 function UserRow(props: { user: User }) {
   const { user } = props
+
   const [deleteUser] = useDeleteUserMutation({ refetchQueries: ['listUsers'] })
+
+  const onPressDelete = () => {
+    deleteUser({ variables: { id: user.id } })
+  }
 
   return (
     <Row spaceBetween>
       <Link key={user.id} href={'/user/' + user.id}>
         <a>{user.name}</a>
       </Link>
-      <IconButton
-        icon={FiTrash}
-        onPress={() => deleteUser({ variables: { id: user.id } })}
-      />
+      <IconButton icon={FiTrash} onPress={onPressDelete} />
     </Row>
   )
 }
 
 function CreateUserButton() {
   const [createUser] = useCreateUserMutation({ refetchQueries: ['listUsers'] })
-  return <Button onPress={createUser} text="Create User" />
+
+  const onPress = () => {
+    createUser()
+  }
+
+  return <Button onPress={onPress} text="Create User" />
 }

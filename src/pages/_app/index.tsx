@@ -1,8 +1,11 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client'
 import React from 'react'
+import { useApollo } from './ApolloClient'
 import { Screen } from './Screen'
 
 export default function App({ Component, pageProps }) {
+  const apolloClient = useApollo(pageProps.initialApolloState)
+
   return (
     <ApolloProvider client={apolloClient}>
       <Screen>
@@ -11,8 +14,3 @@ export default function App({ Component, pageProps }) {
     </ApolloProvider>
   )
 }
-
-const apolloClient = new ApolloClient({
-  uri: `/api/graphql`,
-  cache: new InMemoryCache(),
-})
