@@ -12,7 +12,7 @@ export function useApollo(initialState: NormalizedCacheObject) {
   return useMemo(() => initializeApollo(initialState), [initialState])
 }
 
-function initializeApollo(initialState = null) {
+export function initializeApollo(initialState = null) {
   const _apolloClient = apolloClient ?? createApolloClient()
 
   // If your page has Next.js data fetching methods that use Apollo Client,
@@ -37,7 +37,7 @@ function initializeApollo(initialState = null) {
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: new HttpLink({ uri: '/api/graphql' }),
+    link: new HttpLink({ uri: 'http://localhost:3000/api/graphql' }),
     cache: new InMemoryCache(),
   })
 }

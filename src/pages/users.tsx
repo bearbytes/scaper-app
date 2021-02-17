@@ -2,12 +2,23 @@ import Link from 'next/link'
 import React from 'react'
 import { Button, Column, IconButton, List, Row } from '../components'
 import {
+  ListUsersDocument,
   useCreateUserMutation,
   useDeleteUserMutation,
   useListUsersQuery,
   User,
 } from '../graphql/generated/client-types'
 import { FiTrash } from 'react-icons/fi'
+import { initializeApollo } from './_app/ApolloClient'
+
+export async function getStaticProps() {
+  const apolloClient = initializeApollo()
+  await apolloClient.query({ query: ListUsersDocument })
+  return {
+    props: { initialApolloState: apolloClient.cache.extract() },
+    revalidate: 1,
+  }
+}
 
 export default function IndexPage() {
   const { data } = useListUsersQuery()
