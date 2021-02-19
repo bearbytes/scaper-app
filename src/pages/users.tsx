@@ -2,26 +2,21 @@ import Link from 'next/link'
 import React from 'react'
 import { Button, Column, IconButton, List, Row } from '../components'
 import {
+  CreateUserDocument,
+  DeleteUserDocument,
   ListUsersDocument,
-  useCreateUserMutation,
-  useDeleteUserMutation,
-  useListUsersQuery,
   User,
 } from '../graphql/generated/client-types'
 import { FiTrash } from 'react-icons/fi'
-import { initializeApollo } from './_app/ApolloClient'
+import { prefetchedQueriesProps } from './_app/ApolloClient'
+import { useMutation, useQuery } from '@apollo/client'
 
 export async function getStaticProps() {
-  const apolloClient = initializeApollo()
-  await apolloClient.query({ query: ListUsersDocument })
-  return {
-    props: { initialApolloState: apolloClient.cache.extract() },
-    revalidate: 1,
-  }
+  return prefetchedQueriesProps(ListUsersDocument)
 }
 
 export default function IndexPage() {
-  const { data } = useListUsersQuery()
+  const { data } = useQuery(ListUsersDocument)
   const users = data?.users ?? []
 
   return (
@@ -39,7 +34,9 @@ export default function IndexPage() {
 function UserRow(props: { user: User }) {
   const { user } = props
 
-  const [deleteUser] = useDeleteUserMutation({ refetchQueries: ['listUsers'] })
+  const [deleteUser] = useMutation(DeleteUserDocument, {
+    refetchQueries: ['listUsers'],
+  })
 
   const onPressDelete = () => {
     deleteUser({ variables: { id: user.id } })
@@ -56,7 +53,9 @@ function UserRow(props: { user: User }) {
 }
 
 function CreateUserButton() {
-  const [createUser] = useCreateUserMutation({ refetchQueries: ['listUsers'] })
+  const [createUser] = useMutation(CreateUserDocument, {
+    refetchQueries: ['listUsers'],
+  })
 
   const onPress = () => {
     createUser()

@@ -1,5 +1,6 @@
 import {
   ApolloClient,
+  DocumentNode,
   HttpLink,
   InMemoryCache,
   NormalizedCacheObject,
@@ -12,7 +13,16 @@ export function useApollo(initialState: NormalizedCacheObject) {
   return useMemo(() => initializeApollo(initialState), [initialState])
 }
 
-export function initializeApollo(initialState = null) {
+export async function prefetchedQueriesProps(...queries: DocumentNode[]) {
+  const apolloClient = initializeApollo()
+  await Promise.all(queries.map(query => apolloClient.query({ query })))
+  return {
+    props: { initialApolloState: apolloClient.cache.extract() },
+    revalidate: 1,
+  }
+}
+
+function initializeApollo(initialState = null) {
   const _apolloClient = apolloClient ?? createApolloClient()
 
   // If your page has Next.js data fetching methods that use Apollo Client,
