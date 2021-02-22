@@ -1,7 +1,9 @@
 export const theme = {
   color: {
+    transparent: 'transparent',
     background: '#dca',
     elevated: '#181818',
+    highlighted: '#fff',
   },
   textColor: {
     text: '#000',
