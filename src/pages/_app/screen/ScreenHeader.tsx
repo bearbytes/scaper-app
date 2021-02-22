@@ -27,7 +27,7 @@ function LoginButton() {
 function UserInfo({ user }: { user: Session['user'] }) {
   return (
     <Row alignCenter padHorizonal="M" gap="S">
-      {user.image && <Avatar size="S" url={user.image} />}
+      {user.image && <Avatar size="S" url={user.image} onPress={console.log} />}
     </Row>
   )
 }
