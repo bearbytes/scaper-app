@@ -4,24 +4,26 @@ import { IconType } from 'react-icons'
 
 type SideBarButtonProps = {
   icon: IconType
-  text: string
   linkTo: string
 }
 
 export function SideBarButton(props: SideBarButtonProps) {
-  const { icon, text, linkTo } = props
+  const { icon, linkTo } = props
+
+  const onPress = () => {
+    window.location.href = linkTo
+  }
 
   return (
     <IconButton
-      width={65}
-      height={65}
+      width={40}
+      height={40}
+      borderRadius="M"
       color="background"
+      textColor="text"
+      iconSize="L"
       icon={icon}
-      iconSize={'XL'}
-      text={text}
-      onPress={() => {
-        window.location.href = linkTo
-      }}
+      onPress={onPress}
     />
   )
 }

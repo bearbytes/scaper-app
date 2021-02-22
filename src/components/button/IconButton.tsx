@@ -26,6 +26,7 @@ export function IconButton(props: IconButtonProps) {
     <Column
       alignCenter
       color="elevated"
+      textColor="inverted"
       {...columnProps}
       style={[buttonStyle, style]}
     >

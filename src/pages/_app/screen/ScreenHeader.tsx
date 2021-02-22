@@ -4,7 +4,7 @@ import React from 'react'
 
 export function ScreenHeader() {
   return (
-    <Row height={50} color={'elevated'} alignCenterVertical>
+    <Row height={50} color="elevated" textColor="inverted" alignCenterVertical>
       <Label large bold text="Header" />
       <Spacer />
       <SessionInfo />

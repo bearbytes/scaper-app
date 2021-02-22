@@ -44,6 +44,7 @@ export function Button(props: ButtonProps) {
       gap="S"
       padHorizonal="M"
       color="elevated"
+      textColor="inverted"
       maxWidth={250}
       {...rowProps}
       style={[buttonStyle, pendingStyle, style]}
