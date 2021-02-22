@@ -30,19 +30,13 @@ const iconSize = {
   M: 18,
   L: 24,
   XL: 36,
-}
-
-export type AvatarSize = keyof typeof avatarSize
-const avatarSize = {
-  S: 32,
-  M: 48,
-  L: 144,
+  XXL: 72,
 }
 
 export type Color = keyof typeof color
 const color = {
   transparent: 'transparent',
-  background: '#hsl(120, 30%, 80%)',
+  background: 'hsl(120, 10%, 80%)',
   elevated: 'hsl(0, 0%, 10%)',
   active: 'hsl(120, 40%, 25%)',
 }
@@ -61,7 +55,6 @@ export const theme = {
   textColor,
   fontSize,
   iconSize,
-  avatarSize,
 }
 
 export function matchingTextColor(color: Color): TextColor {

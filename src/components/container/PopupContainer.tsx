@@ -1,14 +1,15 @@
 import { css } from '@emotion/react'
 import { ReactNode } from 'react'
-import { Box } from '../layout/Box'
+import { Box, BoxProps } from '../layout/Box'
 
-export type PopupContainerProps = {
-  children: ReactNode
+export type PopupContainerProps = BoxProps & {
   popupElement?: ReactNode
 }
 
 // TODO add corner to Popup to indicate where it points to the Container
 export function PopupContainer(props: PopupContainerProps) {
+  const { popupElement, style, ...boxProps } = props
+
   const popupContainerStyle = css({
     position: 'relative',
   })
@@ -22,7 +23,7 @@ export function PopupContainer(props: PopupContainerProps) {
   })
 
   return (
-    <Box style={popupContainerStyle}>
+    <Box {...boxProps} style={[popupContainerStyle, style]}>
       {props.children}
       {props.popupElement && <Box style={popupProps}>{props.popupElement}</Box>}
     </Box>

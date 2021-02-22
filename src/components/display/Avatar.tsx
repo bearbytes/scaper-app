@@ -1,10 +1,10 @@
 import { css } from '@emotion/react'
 import { Box, BoxProps } from '../layout/Box'
-import { AvatarSize, theme } from '../theme'
+import { IconSize, theme } from '../theme'
 
 export type AvatarProps = BoxProps & {
   url: string
-  size?: AvatarSize
+  size?: IconSize
   onPress?(): void
 }
 
@@ -18,7 +18,7 @@ export function Avatar(props: AvatarProps) {
       })
     : undefined
 
-  const s = theme.avatarSize[size]
+  const s = theme.iconSize[size]
   return (
     <Box
       {...boxProps}
