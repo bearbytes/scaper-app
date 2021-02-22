@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
+    "@apollo/react-ssr": "^4.0.0",
     "@emotion/react": "11.1.1",
     "@emotion/serialize": "^1.0.0",
     "@emotion/styled": "11.0.0",
@@ -30,7 +31,8 @@
     "nexus": "^1.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-icons": "^4.1.0"
+    "react-icons": "^4.1.0",
+    "valtio": "^0.7.0"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "11.0.0",

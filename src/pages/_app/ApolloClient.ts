@@ -45,9 +45,10 @@ function initializeApollo(initialState = null) {
 }
 
 function createApolloClient() {
+  const ssrMode = typeof window === 'undefined'
   return new ApolloClient({
-    ssrMode: typeof window === 'undefined',
-    link: new HttpLink({ uri: `${process.env.HOST}/api/graphql` }),
+    ssrMode,
+    link: new HttpLink({ uri: `/api/graphql` }),
     cache: new InMemoryCache(),
   })
 }
