@@ -55,7 +55,7 @@ function UserInfo({ user }: { user: Session['user'] }) {
 function UserMenu() {
   return (
     <Box padTop="M">
-      <Column color="elevated" borderColor="background" borderRadius="M">
+      <Column color="elevated" borderRadius="M">
         <Button text="Logout" onPress={signOut} />
       </Column>
     </Box>

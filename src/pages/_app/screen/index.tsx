@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { Box, Column, Row } from '@components'
+import { backgroundGradient, Box, Column, Row } from '@components'
 import { SideBar } from './SideBar'
 import { ScreenHeader } from './ScreenHeader'
 
@@ -20,9 +20,11 @@ export function Screen(props: { children: ReactNode }) {
 function ScreenContainer(props: { children: ReactNode }) {
   return (
     <Column
-      color={'background'}
       height={'100vh'}
-      style={{ overflow: 'hidden' }}
+      style={{
+        overflow: 'hidden',
+        background: backgroundGradient,
+      }}
     >
       {props.children}
     </Column>

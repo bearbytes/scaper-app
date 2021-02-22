@@ -36,10 +36,17 @@ const iconSize = {
 export type Color = keyof typeof color
 const color = {
   transparent: 'transparent',
-  background: 'hsl(120, 10%, 80%)',
+  background: 'hsl(120, 0%, 100%)',
   elevated: 'hsl(0, 0%, 10%)',
   active: 'hsl(120, 40%, 25%)',
 }
+
+export const backgroundGradient =
+  'linear-gradient(170deg, ' +
+  'hsl(120, 50%, 50%) 0%,' +
+  'hsl(150, 50%, 50%) 50%,' +
+  'hsl(180, 80%, 50%) 100%' +
+  ')'
 
 export type TextColor = keyof typeof textColor
 const textColor = {
