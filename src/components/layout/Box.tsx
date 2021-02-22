@@ -1,7 +1,14 @@
 import { css } from '@emotion/react'
 import { CSSInterpolation } from '@emotion/serialize'
 import { ReactNode, useState } from 'react'
-import { Spacing, Color, TextColor, BorderRadius, theme } from '../theme'
+import {
+  Spacing,
+  Color,
+  TextColor,
+  BorderRadius,
+  theme,
+  matchingTextColor,
+} from '../theme'
 
 export type BoxProps = {
   children?: ReactNode
@@ -35,7 +42,7 @@ export type BoxProps = {
 }
 
 export function Box(props: BoxProps) {
-  const {
+  let {
     children,
     style,
 
@@ -62,6 +69,10 @@ export function Box(props: BoxProps) {
 
     onPress,
   } = props
+
+  if (!textColor && color) {
+    textColor = matchingTextColor(color)
+  }
 
   const boxStyle = css({
     padding: theme.spacing[pad!],

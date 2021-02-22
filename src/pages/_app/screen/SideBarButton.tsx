@@ -16,11 +16,9 @@ export function SideBarButton(props: SideBarButtonProps) {
 
   return (
     <IconButton
-      width={40}
-      height={40}
+      width={48}
+      height={48}
       borderRadius="M"
-      color="background"
-      textColor="text"
       iconSize="L"
       icon={icon}
       onPress={onPress}

@@ -23,13 +23,7 @@ export function IconButton(props: IconButtonProps) {
   })
 
   return (
-    <Column
-      alignCenter
-      color="elevated"
-      textColor="inverted"
-      {...columnProps}
-      style={[buttonStyle, style]}
-    >
+    <Column alignCenter {...columnProps} style={[buttonStyle, style]}>
       {icon && <Icon icon={icon} size={iconSize} />}
       {text && <Label text={text} />}
     </Column>

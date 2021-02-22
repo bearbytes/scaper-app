@@ -23,7 +23,6 @@ function ScreenContainer(props: { children: ReactNode }) {
       color={'background'}
       height={'100vh'}
       style={{ overflow: 'hidden' }}
-      textColor={'text'}
     >
       {props.children}
     </Column>

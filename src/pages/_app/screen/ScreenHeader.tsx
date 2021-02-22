@@ -3,10 +3,11 @@ import { signIn, useSession, Session, signOut } from 'next-auth/client'
 import React from 'react'
 import { Column } from '../../../components/layout/FlexBox'
 import { PopupContainer } from '../../../components/container/PopupContainer'
+import { useToggle } from '../../../lib/hooks/useToggle'
 
 export function ScreenHeader() {
   return (
-    <Row height={50} color="elevated" textColor="inverted" alignCenterVertical>
+    <Row height={65} color="elevated" alignCenterVertical>
       <Label large bold text="Header" />
       <Spacer />
       <SessionInfo />
@@ -27,27 +28,24 @@ function LoginButton() {
 }
 
 function UserInfo({ user }: { user: Session['user'] }) {
+  const [menuOpen, toggleMenu] = useToggle(false)
+
   return (
-    <PopupContainer popupElement={<UserMenu />}>
-      <Row alignCenter pad="M" gap="S">
+    <Row alignCenter pad="M" gap="S">
+      <PopupContainer popupElement={menuOpen && <UserMenu />}>
         {user.image && (
-          <Avatar size="S" url={user.image} onPress={console.log} />
+          <Avatar size="M" url={user.image} onPress={toggleMenu} />
         )}
-      </Row>
-    </PopupContainer>
+      </PopupContainer>
+    </Row>
   )
 }
 
 function UserMenu() {
   return (
-    <Box pad="S">
-      <Column color="highlighted" borderRadius="M">
-        <Button
-          color="transparent"
-          textColor="text"
-          text="Logout"
-          onPress={signOut}
-        />
+    <Box padTop="M">
+      <Column color="elevated" borderRadius="M">
+        <Button color="transparent" text="Logout" onPress={signOut} />
       </Column>
     </Box>
   )

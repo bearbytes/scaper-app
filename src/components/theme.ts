@@ -1,52 +1,75 @@
-export const theme = {
-  color: {
-    transparent: 'transparent',
-    background: '#dca',
-    elevated: '#181818',
-    highlighted: '#fff',
-  },
-  textColor: {
-    text: '#000',
-    inverted: '#eee',
-  },
-  fontSize: {
-    default: '1em',
-    small: '0.7em',
-    large: '1.5em',
-  },
-  spacing: {
-    none: 0,
-    XXS: 1,
-    XS: 2,
-    S: 4,
-    M: 8,
-    L: 16,
-    XL: 32,
-    XXL: 64,
-  },
-  borderRadius: {
-    none: 0,
-    S: 4,
-    M: 8,
-  },
-  iconSize: {
-    S: 12,
-    M: 18,
-    L: 24,
-    XL: 36,
-  },
-  avatarSize: {
-    S: 32,
-    M: 72,
-    L: 144,
-  },
+export type FontSize = keyof typeof fontSize
+const fontSize = {
+  default: '1em',
+  small: '0.7em',
+  large: '1.5em',
+}
+
+export type Spacing = keyof typeof spacing
+const spacing = {
+  none: 0,
+  XXS: 1,
+  XS: 2,
+  S: 4,
+  M: 8,
+  L: 16,
+  XL: 32,
+  XXL: 64,
+}
+
+export type BorderRadius = keyof typeof borderRadius
+const borderRadius = {
+  none: 0,
+  S: 4,
+  M: 8,
+}
+
+export type IconSize = keyof typeof iconSize
+const iconSize = {
+  S: 12,
+  M: 18,
+  L: 24,
+  XL: 36,
+}
+
+export type AvatarSize = keyof typeof avatarSize
+const avatarSize = {
+  S: 32,
+  M: 48,
+  L: 144,
+}
+
+export type Color = keyof typeof color
+const color = {
+  transparent: 'transparent',
+  background: '#hsl(120, 30%, 80%)',
+  elevated: 'hsl(0, 0%, 10%)',
+  active: 'hsl(120, 40%, 25%)',
+}
+
+export type TextColor = keyof typeof textColor
+const textColor = {
+  default: '#000',
+  inverted: '#eee',
 }
 
 export type Theme = typeof theme
-export type Spacing = keyof Theme['spacing']
-export type Color = keyof Theme['color']
-export type TextColor = keyof Theme['textColor']
-export type FontSize = keyof Theme['fontSize']
-export type BorderRadius = keyof Theme['borderRadius']
-export type IconSize = keyof Theme['iconSize']
-export type AvatarSize = keyof Theme['avatarSize']
+export const theme = {
+  spacing,
+  borderRadius,
+  color,
+  textColor,
+  fontSize,
+  iconSize,
+  avatarSize,
+}
+
+export function matchingTextColor(color: Color): TextColor {
+  switch (color) {
+    case 'elevated':
+    case 'active':
+      return 'inverted'
+    default:
+      return 'default'
+  }
+}

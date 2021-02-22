@@ -24,6 +24,7 @@ export function Avatar(props: AvatarProps) {
       {...boxProps}
       color="background"
       style={[{ borderRadius: s / 4 }, buttonStyle]}
+      onPress={props.onPress}
     >
       <img src={url} width={s} height={s} />
     </Box>

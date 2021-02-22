@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { IconType } from 'react-icons'
 import { Icon } from '../display/Icon'
 import { Row, RowProps } from '../layout/FlexBox'
+import { Label } from '../typography/Label'
 
 export type ButtonProps = RowProps & {
   icon?: IconType
@@ -39,19 +40,19 @@ export function Button(props: ButtonProps) {
 
   return (
     <Row
+      pad="M"
       alignCenter
       borderRadius="S"
       gap="S"
       padHorizonal="M"
       color="elevated"
-      textColor="inverted"
       maxWidth={250}
       {...rowProps}
       style={[buttonStyle, pendingStyle, style]}
       onPress={onPress}
     >
       {icon && <Icon icon={icon} />}
-      <p>{text}</p>
+      {text && <Label bold text={text} />}
     </Row>
   )
 }
