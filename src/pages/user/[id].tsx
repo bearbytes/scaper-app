@@ -43,5 +43,5 @@ export const getStaticProps: GetStaticProps<
 export const getStaticPaths: GetStaticPaths<PageParams> = async ctx => {
   const users = await db.user.findMany({ select: { id: true } })
   const paths = users.map(user => ({ params: { id: user.id } }))
-  return { paths, fallback: true }
+  return { paths, fallback: 'blocking' }
 }
