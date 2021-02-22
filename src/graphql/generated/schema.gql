@@ -3,16 +3,16 @@
 
 
 type Mutation {
-  createUser: User
-  deleteUser(id: ID): User
+  createUser: User!
+  deleteUser(id: ID!): User!
 }
 
 type Query {
-  users: [User]
+  users: [User!]!
 }
 
 type User {
-  email: String
-  id: ID
-  name: String
+  email: String!
+  id: ID!
+  name: String!
 }

@@ -20,7 +20,7 @@ export function Button(props: ButtonProps) {
     ? async () => {
         if (pending) return
         setPending(true)
-        await Promise.resolve(props.onPress())
+        await Promise.resolve(props.onPress?.())
         setPending(false)
       }
     : undefined

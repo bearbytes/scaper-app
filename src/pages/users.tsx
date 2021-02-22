@@ -8,9 +8,9 @@ import {
 import { FiTrash } from 'react-icons/fi'
 import { db } from '../lib/db'
 import { remove } from 'lodash'
-import { withPageProps } from '../lib/pageProps'
 import { useMutation } from '../lib/graphql'
 import { GetStaticProps } from 'next'
+import { useMutatePageProps, usePageProps } from '../lib/pageProps'
 
 /* Types */
 
@@ -29,7 +29,7 @@ export default function UsersPage() {
 }
 
 function UsersList() {
-  const { users } = usePageProps()
+  const { users } = usePageProps<PageProps>()
   return (
     <List
       rows={users}
@@ -61,7 +61,8 @@ function CreateUserButton() {
 
 function useDeleteUser(id: string) {
   const deleteUser = useMutation(DeleteUserDocument)
-  const mutate = useMutatePageProps()
+  const mutate = useMutatePageProps<PageProps>()
+
   return async function () {
     await deleteUser({ id })
     mutate(props => {
@@ -72,7 +73,8 @@ function useDeleteUser(id: string) {
 
 function useCreateUser() {
   const createUser = useMutation(CreateUserDocument)
-  const mutate = useMutatePageProps()
+  const mutate = useMutatePageProps<PageProps>()
+
   return async function () {
     const {
       createUser: { id, name },
@@ -85,8 +87,6 @@ function useCreateUser() {
 }
 
 /* Server Side Generation */
-
-const { usePageProps, useMutatePageProps } = withPageProps<PageProps>()
 
 export const getStaticProps: GetStaticProps<PageProps> = async ctx => ({
   props: {

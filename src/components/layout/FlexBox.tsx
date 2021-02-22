@@ -38,23 +38,23 @@ function FlexBox(props: FlexBoxProps) {
     ...boxProps
   } = props
 
-  let alignHorizontal: string
+  let alignHorizontal: string | undefined
   if (alignCenter || alignCenterHorizontal) alignHorizontal = 'center'
   else if (alignLeft) alignHorizontal = 'flex-start'
   else if (alignRight) alignHorizontal = 'flex-end'
 
-  let alignVertical: string
+  let alignVertical: string | undefined
   if (alignCenter || alignCenterVertical) alignVertical = 'center'
   else if (alignTop) alignVertical = 'flex-start'
   else if (alignBottom) alignVertical = 'flex-end'
 
-  let justifyContent: string
+  let justifyContent: string | undefined
   if (spaceBetween) justifyContent = 'space-between'
   else if (spaceEvenly) justifyContent = 'space-evenly'
   else if (flexDirection == 'row') justifyContent = alignHorizontal
   else justifyContent = alignVertical
 
-  let alignItems: string
+  let alignItems: string | undefined
   if (flexDirection == 'row') alignItems = alignVertical
   else alignItems = alignHorizontal
 
@@ -65,7 +65,7 @@ function FlexBox(props: FlexBoxProps) {
     justifyContent,
     alignItems,
 
-    gap: theme.spacing[gap],
+    gap: gap ? theme.spacing[gap] : undefined,
   })
 
   return <Box {...boxProps} style={[flexBoxStyle, props.style]} />

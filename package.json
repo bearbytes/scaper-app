@@ -15,6 +15,7 @@
     "graphql:watch": "graphql-codegen -w -c graphql.config.yml"
   },
   "dependencies": {
+    "@graphql-typed-document-node/core": "^3.1.0",
     "@emotion/react": "11.1.1",
     "@emotion/serialize": "^1.0.0",
     "@emotion/styled": "11.0.0",
@@ -37,9 +38,9 @@
   "devDependencies": {
     "@emotion/babel-plugin": "11.0.0",
     "@graphql-codegen/cli": "^1.20.1",
+    "@graphql-codegen/typed-document-node": "^1.18.2",
     "@graphql-codegen/typescript": "^1.21.0",
     "@graphql-codegen/typescript-operations": "^1.17.14",
-    "@graphql-typed-document-node/core": "^3.1.0",
     "@types/faker": "^5.1.6",
     "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.25",

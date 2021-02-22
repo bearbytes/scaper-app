@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import { Spacing, theme } from '../theme'
 import { Box, BoxProps } from './Box'
 
@@ -23,7 +23,7 @@ export function Grid(props: GridProps) {
       {...boxProps}
       style={{
         display: 'grid',
-        gridGap: theme.spacing[gap],
+        gridGap: theme.spacing[gap!],
         gridTemplateColumns,
       }}
     >

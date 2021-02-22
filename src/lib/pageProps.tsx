@@ -1,10 +1,3 @@
-import {
-  GetStaticPathsContext,
-  GetStaticPathsResult,
-  GetStaticPropsContext,
-  GetStaticPropsResult,
-} from 'next'
-import { ParsedUrlQuery } from 'querystring'
 import { createContext, ReactNode, useContext } from 'react'
 import { proxy, useProxy } from 'valtio'
 
@@ -21,17 +14,14 @@ export function PagePropsProvider<P extends object>(props: {
   )
 }
 
-export function withPageProps<P extends object>() {
-  return {
-    usePageProps(): P {
-      const proxy = useContext(pagePropsContext)
-      return useProxy(proxy)
-    },
-    useMutatePageProps() {
-      const proxy = useContext(pagePropsContext)
-      return function mutate(mutation: (pageProps: P) => void) {
-        mutation(proxy)
-      }
-    },
+export function usePageProps<P extends object>() {
+  const proxy = useContext(pagePropsContext)
+  return useProxy(proxy) as P
+}
+
+export function useMutatePageProps<P extends object>() {
+  const proxy = useContext(pagePropsContext)
+  return function mutate(mutation: (pageProps: P) => void) {
+    mutation(proxy)
   }
 }
