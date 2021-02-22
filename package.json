@@ -11,12 +11,10 @@
     "prisma": "npx prisma db push --preview-feature",
     "nexus": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' --transpile-only src/graphql/schema.ts",
     "nexus:watch": "nodemon -w src/graphql/types -e ts -x \"npm run nexus\"",
-    "apollo": "graphql-codegen -c graphql.config.yml",
-    "apollo:watch": "graphql-codegen -w -c graphql.config.yml"
+    "graphql": "graphql-codegen -c graphql.config.yml",
+    "graphql:watch": "graphql-codegen -w -c graphql.config.yml"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.11",
-    "@apollo/react-ssr": "^4.0.0",
     "@emotion/react": "11.1.1",
     "@emotion/serialize": "^1.0.0",
     "@emotion/styled": "11.0.0",
@@ -24,6 +22,7 @@
     "apollo-server-micro": "^2.21.0",
     "faker": "^5.4.0",
     "graphql": "^15.5.0",
+    "graphql-request": "^3.4.0",
     "lodash": "^4.17.20",
     "masonic": "^3.4.0",
     "next": "^10.0.0",
@@ -32,6 +31,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.1.0",
+    "swr": "^0.4.2",
     "valtio": "^0.7.0"
   },
   "devDependencies": {
@@ -39,7 +39,7 @@
     "@graphql-codegen/cli": "^1.20.1",
     "@graphql-codegen/typescript": "^1.21.0",
     "@graphql-codegen/typescript-operations": "^1.17.14",
-    "@graphql-codegen/typed-document-node": "^1.18.2",
+    "@graphql-typed-document-node/core": "^3.1.0",
     "@types/faker": "^5.1.6",
     "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.25",

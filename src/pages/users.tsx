@@ -6,10 +6,10 @@ import {
   DeleteUserDocument,
 } from '../graphql/generated/client-types'
 import { FiTrash } from 'react-icons/fi'
-import { useMutation } from '@apollo/client'
 import { db } from '../lib/db'
 import { remove } from 'lodash'
 import { GetStaticProps, withPageProps } from '../lib/pageProps'
+import { useMutation } from '../lib/graphql'
 
 /* Types */
 
@@ -59,29 +59,27 @@ function CreateUserButton() {
 /* Hooks */
 
 function useDeleteUser(id: string) {
-  const [deleteUser] = useMutation(DeleteUserDocument)
+  const deleteUser = useMutation(DeleteUserDocument)
   const mutate = useMutatePageProps()
   return async function () {
-    const response = await deleteUser({ variables: { id } })
-    if (response.data.deleteUser) {
-      mutate(props => {
-        remove(props.users, user => user.id == id)
-      })
-    }
+    await deleteUser({ id })
+    mutate(props => {
+      remove(props.users, user => user.id == id)
+    })
   }
 }
 
 function useCreateUser() {
-  const [createUser] = useMutation(CreateUserDocument)
+  const createUser = useMutation(CreateUserDocument)
   const mutate = useMutatePageProps()
   return async function () {
-    const response = await createUser()
-    if (response.data.createUser) {
-      const { id, name } = response.data.createUser
-      mutate(props => {
-        props.users.push({ id, name })
-      })
-    }
+    const {
+      createUser: { id, name },
+    } = await createUser({})
+
+    mutate(props => {
+      props.users.push({ id, name })
+    })
   }
 }
 
