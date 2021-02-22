@@ -34,7 +34,7 @@ export const theme = {
     XL: 36,
   },
   avatarSize: {
-    S: 36,
+    S: 32,
     M: 72,
     L: 144,
   },

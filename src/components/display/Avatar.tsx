@@ -11,8 +11,8 @@ export function Avatar(props: AvatarProps) {
 
   const s = theme.avatarSize[size]
   return (
-    <Box {...boxProps}>
-      <img src={url} width={s} height={s} style={{ borderRadius: s / 4 }} />
+    <Box {...boxProps} color="background" style={{ borderRadius: s / 4 }}>
+      <img src={url} width={s} height={s} />
     </Box>
   )
 }
