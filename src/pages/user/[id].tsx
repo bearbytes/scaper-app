@@ -1,29 +1,39 @@
-import { GetStaticPathsContext, GetStaticPropsContext } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
-import { Avatar, Column, Icon, Label, Row, Spacer } from '../../components'
+import { Avatar, Label, Row } from '../../components'
 import { db } from '../../lib/db'
-import { StaticProps } from '../../lib/types'
 
-export async function getStaticProps(ctx: GetStaticPropsContext) {
-  const id = ctx.params.id as string
-  const user = await db.user.findUnique({ where: { id } })
-  return { props: { user } }
-}
+/* Types */
 
-export async function getStaticPaths(ctx: GetStaticPathsContext) {
-  const users = await db.user.findMany({ select: { id: true } })
-  const paths = users.map(user => ({
-    params: { id: user.id },
-  }))
-  return { paths, fallback: true }
-}
+type PageParams = { id: string }
+type PageProps = { user: User }
+type User = { id: string; name: string; avatarUrl: string }
 
-export default function UserPage(props: StaticProps<typeof getStaticProps>) {
-  const { user } = props
+/* Components */
+
+export default function UserPage({ user }: PageProps) {
   return (
-    <Row alignCenterVertical gap="S">
-      <Avatar size="S" url={user.avatarUrl} />
+    <Row alignTop gap="S">
+      <Avatar size="L" url={user.avatarUrl} />
       <Label large text={user.name} />
     </Row>
   )
+}
+
+/* Hooks */
+
+/* Server Side Generation */
+export const getStaticProps: GetStaticProps<
+  PageProps,
+  PageParams
+> = async ctx => ({
+  props: {
+    user: await db.user.findUnique({ where: { id: ctx.params.id } }),
+  },
+})
+
+export const getStaticPaths: GetStaticPaths<PageParams> = async ctx => {
+  const users = await db.user.findMany({ select: { id: true } })
+  const paths = users.map(user => ({ params: { id: user.id } }))
+  return { paths, fallback: true }
 }

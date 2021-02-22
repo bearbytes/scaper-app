@@ -1,4 +1,10 @@
-import { GetStaticPropsContext } from 'next'
+import {
+  GetStaticPathsContext,
+  GetStaticPathsResult,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+} from 'next'
+import { ParsedUrlQuery } from 'querystring'
 import { createContext, ReactNode, useContext } from 'react'
 import { proxy, useProxy } from 'valtio'
 
@@ -29,7 +35,3 @@ export function withPageProps<P extends object>() {
     },
   }
 }
-
-export type GetStaticProps<P> = (
-  ctx: GetStaticPropsContext,
-) => Promise<{ props: P }>

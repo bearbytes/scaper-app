@@ -8,8 +8,9 @@ import {
 import { FiTrash } from 'react-icons/fi'
 import { db } from '../lib/db'
 import { remove } from 'lodash'
-import { GetStaticProps, withPageProps } from '../lib/pageProps'
+import { withPageProps } from '../lib/pageProps'
 import { useMutation } from '../lib/graphql'
+import { GetStaticProps } from 'next'
 
 /* Types */
 
@@ -86,7 +87,8 @@ function useCreateUser() {
 /* Server Side Generation */
 
 const { usePageProps, useMutatePageProps } = withPageProps<PageProps>()
-export const getStaticProps: GetStaticProps<PageProps> = async () => ({
+
+export const getStaticProps: GetStaticProps<PageProps> = async ctx => ({
   props: {
     users: await db.user.findMany({ select: { id: true, name: true } }),
   },
