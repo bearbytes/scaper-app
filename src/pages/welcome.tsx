@@ -1,4 +1,5 @@
-import { GetStaticProps } from 'next'
+import { GetServerSideProps, GetStaticProps } from 'next'
+import { getSession, useSession } from 'next-auth/client'
 import React from 'react'
 import { Label } from '../components'
 
@@ -16,6 +17,10 @@ export default function SetupUserPage() {
 
 /* Server Side Generation */
 
-export const getStaticProps: GetStaticProps<PageProps> = async () => ({
-  props: {},
-})
+export const getServerSideProps: GetServerSideProps<PageProps> = async ctx => {
+  const session = await getSession(ctx)
+  if (!session || session.user.isSetup)
+    return { redirect: { statusCode: 303, destination: '/' } }
+
+  return { props: {} }
+}
