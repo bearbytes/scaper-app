@@ -1,12 +1,13 @@
-import { GetStaticPropsContext } from 'next'
+import { GetStaticProps } from 'next'
 import React from 'react'
 import { Label } from '../components'
-import { StaticProps } from '../lib/types'
 
-export async function getStaticProps(ctx: GetStaticPropsContext) {
-  return { props: {} }
+type PageProps = {}
+
+export default function IndexPage() {
+  return <Label text="Index" />
 }
 
-export default function IndexPage(props: StaticProps<typeof getStaticProps>) {
-  return <Label text="Index" />
+export const getStaticProps: GetStaticProps<PageProps> = async () => {
+  return { props: {} }
 }

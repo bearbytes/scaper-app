@@ -1,9 +1,10 @@
-import { PrismaClientInitializationError } from '@prisma/client/runtime'
 import { NextApiRequest, NextApiResponse } from 'next'
 import NextAuth, { InitOptions } from 'next-auth'
-import Adapters from 'next-auth/adapters'
 import Providers from 'next-auth/providers'
-import { db } from '../../../lib/db'
+
+export default async function (req: NextApiRequest, res: NextApiResponse) {
+  await NextAuth(req, res, options)
+}
 
 const options: InitOptions = {
   providers: [
@@ -13,15 +14,25 @@ const options: InitOptions = {
     }),
   ],
   callbacks: {
-    async session(session, user) {
-      return session
-    },
-    async jwt(token, user, account, profile, isNewUser) {
+    async jwt(token, user, account) {
+      if (user && account) {
+        // TODO does every provider have an `id` prop?
+        token.id = `${account.provider}:${account.id}`
+      }
       return token
+    },
+    async session(session, user) {
+      // Copy the `id` prop from the token/user to the session
+      session.user.id = user.id
+      return session
     },
   },
 }
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
-  await NextAuth(req, res, options)
+// Since we add the `id` prop to the session user, we want to make it available
+// to consumers of `getSession` or `useSession`.
+declare module 'next-auth' {
+  export interface User {
+    id: string
+  }
 }
