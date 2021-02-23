@@ -1,9 +1,10 @@
 import { Box, Button, Label, Row, Spacer, Image } from '../../../components'
 import { signIn, useSession, Session, signOut } from 'next-auth/client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Column } from '../../../components/layout/FlexBox'
 import { PopupContainer } from '../../../components/container/PopupContainer'
 import { useToggle } from '../../../lib/hooks/useToggle'
+import { useRouter } from 'next/router'
 
 export function ScreenHeader() {
   return (
@@ -17,7 +18,6 @@ export function ScreenHeader() {
 
 function SessionInfo() {
   const [session, loading] = useSession()
-  console.log({ session, loading })
   if (loading) return null
   if (!session) return <LoginButton />
   else return <UserInfo user={session.user} />
@@ -29,6 +29,13 @@ function LoginButton() {
 
 function UserInfo({ user }: { user: Session['user'] }) {
   const [menuOpen, toggleMenu] = useToggle(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!user.isSetup) {
+      router.push('/welcome')
+    }
+  }, [])
 
   return (
     <PopupContainer

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import NextAuth, { InitOptions } from 'next-auth'
 import Providers from 'next-auth/providers'
+import { db } from '../../../lib/db'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   await NextAuth(req, res, options)
@@ -22,11 +23,17 @@ const options: InitOptions = {
       return token
     },
     async session(session, user) {
+      const dbUser = await db.user.findUnique({
+        where: { id: user.id },
+      })
+
       // Copy the `id` prop from the token/user to the session
       session.user.id = user.id
+      session.user.isSetup = dbUser != null
       return session
     },
   },
+  pages: {},
 }
 
 // Since we add the `id` prop to the session user, we want to make it available
@@ -34,5 +41,6 @@ const options: InitOptions = {
 declare module 'next-auth' {
   export interface User {
     id: string
+    isSetup: boolean
   }
 }

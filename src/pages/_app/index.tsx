@@ -1,5 +1,7 @@
+import { useSession } from 'next-auth/client'
 import { AppProps } from 'next/dist/next-server/lib/router/router'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useQuery } from '../../lib/graphql'
 import { PagePropsProvider } from '../../lib/pageProps'
 import { Screen } from './screen'
 
