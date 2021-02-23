@@ -43,9 +43,8 @@ const color = {
 
 export const backgroundGradient =
   'linear-gradient(170deg, ' +
-  'hsl(120, 50%, 50%) 0%,' +
-  'hsl(150, 50%, 50%) 50%,' +
-  'hsl(180, 80%, 50%) 100%' +
+  'hsl(120, 40%, 60%) 0%,' +
+  'hsl(220, 40%, 50%) 100%' +
   ')'
 
 export type TextColor = keyof typeof textColor
