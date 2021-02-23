@@ -19,6 +19,6 @@
       "@components": ["./components"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js", "src/pages/api/auth/[...nextauth].js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js", "src/pages/api/auth/[...nextauth].ts"],
   "exclude": ["node_modules"]
 }
