@@ -27,11 +27,11 @@ model Project {
   tags        Tag[]
   ownerId     String
   owner       User           @relation(fields: [ownerId], references: [id])
-  stages      ProjectStage[]
+  phases      ProjectPhase[]
   Like        Like[]
 }
 
-model ProjectStage {
+model ProjectPhase {
   id          String  @id @default(cuid())
   title       String?
   description String?
@@ -47,8 +47,8 @@ model Media {
   uri            String
   ownerId        String
   owner          User          @relation(fields: [ownerId], references: [id])
-  projectStageId String?
-  projectStage   ProjectStage? @relation(fields: [projectStageId], references: [id])
+  projectPhaseId String?
+  projectPhase   ProjectPhase? @relation(fields: [projectPhaseId], references: [id])
   tags           Tag[]
   Like           Like[]
 }
@@ -68,7 +68,7 @@ model Tag {
   text         String
   media        Media[]
   project      Project[]
-  projectStage ProjectStage[]
+  projectPhase ProjectPhase[]
   articles     Article[]
 }
 
