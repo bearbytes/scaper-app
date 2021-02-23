@@ -8,15 +8,83 @@ generator client {
 }
 
 model User {
-  id        String  @id @default(uuid())
-  name      String
+  id        String    @id @default(cuid())
+  userName  String
+  fullName  String
   email     String
   avatarUrl String?
-  tanks     Tank[]
+  articles  Article[]
+  projects  Project[]
+  medias    Media[]
+  Like      Like[]
 }
 
-model Tank {
-  id      Int    @id @default(autoincrement())
-  ownerId String
-  owner   User   @relation(fields: [ownerId], references: [id])
+model Project {
+  id          String         @id @default(cuid())
+  slug        String
+  name        String
+  description String?
+  tags        Tag[]
+  ownerId     String
+  owner       User           @relation(fields: [ownerId], references: [id])
+  stages      ProjectStage[]
+  Like        Like[]
+}
+
+model ProjectStage {
+  id          String  @id @default(cuid())
+  title       String?
+  description String?
+  projectId   String
+  project     Project @relation(fields: [projectId], references: [id])
+  tags        Tag[]
+  medias      Media[]
+}
+
+model Media {
+  id             String        @id @default(cuid())
+  mediaType      MediaType
+  uri            String
+  ownerId        String
+  owner          User          @relation(fields: [ownerId], references: [id])
+  projectStageId String?
+  projectStage   ProjectStage? @relation(fields: [projectStageId], references: [id])
+  tags           Tag[]
+  Like           Like[]
+}
+
+model Article {
+  id       String @id @default(cuid())
+  title    String
+  text     String
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+  tags     Tag[]
+  Like     Like[]
+}
+
+model Tag {
+  slug         String         @id
+  text         String
+  media        Media[]
+  project      Project[]
+  projectStage ProjectStage[]
+  articles     Article[]
+}
+
+enum MediaType {
+  Image
+  Video
+}
+
+model Like {
+  id        String  @id @default(cuid())
+  ownerId   String
+  owner     User    @relation(fields: [ownerId], references: [id])
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+  articleId String
+  article   Article @relation(fields: [articleId], references: [id])
+  mediaId   String
+  media     Media   @relation(fields: [mediaId], references: [id])
 }
