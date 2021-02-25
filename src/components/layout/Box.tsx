@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { CSSInterpolation } from '@emotion/serialize'
+import { CSSInterpolation, Interpolation } from '@emotion/serialize'
 import { ReactNode, useState } from 'react'
 import {
   Spacing,
@@ -42,6 +42,16 @@ export type BoxProps = {
 }
 
 export function Box(props: BoxProps) {
+  const style = useBoxStyle(props)
+
+  return (
+    <div css={style} onClick={props.onPress}>
+      {props.children}
+    </div>
+  )
+}
+
+export function useBoxStyle(props: BoxProps): CSSInterpolation {
   let {
     children,
     style,
@@ -99,9 +109,5 @@ export function Box(props: BoxProps) {
     cursor: onPress ? 'pointer' : undefined,
   })
 
-  return (
-    <div css={[boxStyle, style]} onClick={onPress}>
-      {children}
-    </div>
-  )
+  return [boxStyle, style]
 }

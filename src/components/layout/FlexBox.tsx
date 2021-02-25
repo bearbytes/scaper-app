@@ -34,7 +34,7 @@ function FlexBox(props: FlexBoxProps) {
     spaceBetween,
     spaceEvenly,
 
-    gap,
+    gap = 'M',
     ...boxProps
   } = props
 

@@ -1,7 +1,9 @@
 import { GetServerSideProps, GetStaticProps } from 'next'
 import { getSession, useSession } from 'next-auth/client'
 import React from 'react'
-import { Column, Form, Label, TextInput } from '../components'
+import { Column, Form, Grid, Label, Row, TextInput } from '../components'
+import { Panel } from '../components/container/Panel'
+import { FormField } from '../components/input/FormField'
 
 /* Types */
 
@@ -11,12 +13,28 @@ type PageProps = {}
 
 export default function SetupUserPage() {
   return (
-    <Column>
+    <Panel>
       <Label large text="Welcome" />
       <Form>
-        <TextInput value="" onChange={console.log} />
+        <FormField label="Your username:">
+          <TextInput value="Blablabla" onChange={console.log} />
+        </FormField>
+
+        <Grid columnWidth={100}>
+          <FormField label="Age">
+            <TextInput value="12" onChange={console.log} />
+          </FormField>
+
+          <FormField label="Location">
+            <TextInput value="Berlin" onChange={console.log} />
+          </FormField>
+
+          <FormField label="Language">
+            <TextInput value="English" onChange={console.log} />
+          </FormField>
+        </Grid>
       </Form>
-    </Column>
+    </Panel>
   )
 }
 

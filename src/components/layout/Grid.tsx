@@ -9,7 +9,7 @@ export type GridProps = BoxProps & {
 }
 
 export function Grid(props: GridProps) {
-  const { children, gap, columnWidth, columns, ...boxProps } = props
+  const { children, gap = 'M', columnWidth, columns, ...boxProps } = props
 
   let gridTemplateColumns = columns
 

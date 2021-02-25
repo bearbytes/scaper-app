@@ -1,7 +1,7 @@
 export type FontSize = keyof typeof fontSize
 const fontSize = {
   default: '1em',
-  small: '0.7em',
+  small: '0.8em',
   large: '1.5em',
 }
 
@@ -36,6 +36,7 @@ const iconSize = {
 export type Color = keyof typeof color
 const color = {
   transparent: 'transparent',
+  semiTransparent: '#fff4',
   background: 'hsl(120, 0%, 100%)',
   elevated: 'hsl(0, 0%, 10%)',
   active: 'hsl(120, 40%, 25%)',

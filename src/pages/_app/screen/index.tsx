@@ -6,9 +6,9 @@ import { ScreenHeader } from './ScreenHeader'
 export function Screen(props: { children: ReactNode }) {
   return (
     <ScreenContainer>
-      <Row flex>
+      <Row flex gap="none">
         <SideBar />
-        <Column flex>
+        <Column flex gap="none">
           <ScreenHeader />
           <ContentContainer>{props.children}</ContentContainer>
         </Column>
