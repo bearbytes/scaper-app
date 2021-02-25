@@ -1,7 +1,7 @@
 import { GetServerSideProps, GetStaticProps } from 'next'
 import { getSession, useSession } from 'next-auth/client'
 import React from 'react'
-import { Label } from '../components'
+import { Column, Form, Label, TextInput } from '../components'
 
 /* Types */
 
@@ -10,7 +10,14 @@ type PageProps = {}
 /* Components */
 
 export default function SetupUserPage() {
-  return <Label text="Setup User" />
+  return (
+    <Column>
+      <Label large text="Welcome" />
+      <Form>
+        <TextInput value="" onChange={console.log} />
+      </Form>
+    </Column>
+  )
 }
 
 /* Hooks */
