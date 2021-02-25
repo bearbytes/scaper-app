@@ -8,6 +8,7 @@ import Link from 'next/link'
 export type LabelProps = BoxProps & {
   text: string
 
+  title?: boolean
   bold?: boolean
   underline?: boolean
   strikethrough?: boolean
@@ -24,6 +25,7 @@ export type LabelProps = BoxProps & {
 export function Label(props: LabelProps) {
   const {
     text,
+    title,
     bold,
     underline,
     strikethrough,
@@ -53,7 +55,13 @@ export function Label(props: LabelProps) {
   else if (alignCenter) textAlign = 'center'
   else if (alignRight) textAlign = 'right'
 
-  const labelStyle = css({ fontSize, fontWeight, textDecoration, textAlign })
+  const labelStyle = css({
+    fontSize,
+    fontWeight,
+    textDecoration,
+    textAlign,
+    fontFamily: title ? 'Lobster Two' : undefined,
+  })
 
   return (
     <Box {...boxProps} style={[labelStyle, style]}>

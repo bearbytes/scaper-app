@@ -19,8 +19,9 @@ export default class MyDocument extends Document {
       <Html>
         <GlobalStyles />
         <Head>
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Lobster+Two&family=Source+Sans+Pro&display=swap"
             rel="stylesheet"
           />
         </Head>

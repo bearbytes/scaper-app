@@ -9,6 +9,7 @@ import {
   TextInput,
   FormField,
   Panel,
+  Row,
 } from '../components'
 import { useForm } from 'react-hook-form'
 import { SubmitButton } from '../components/input/SubmitButton'
@@ -22,7 +23,7 @@ type PageProps = {}
 export default function SetupUserPage() {
   return (
     <Panel>
-      <Label large text="Welcome" />
+      <Label title large text="Welcome" />
       <SetupUserForm />
     </Panel>
   )
@@ -42,9 +43,10 @@ function SetupUserForm() {
   }
 
   return (
-    <Form form={form} onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit} options={{ mode: 'onChange' }}>
       <FormField
         label="Your username:"
+        prefix="@"
         name="username"
         options={{
           required: 'Username is required',

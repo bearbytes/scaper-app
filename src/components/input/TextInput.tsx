@@ -1,6 +1,8 @@
 import React, { forwardRef, Ref } from 'react'
-import { BoxProps, useBoxStyle } from '../layout/Box'
+import { Box, BoxProps, useBoxStyle } from '../layout/Box'
+import { Row } from '../layout/FlexBox'
 import { theme } from '../theme'
+import { Label } from '../typography/Label'
 
 export type NumberInputProps = Omit<TextInputProps, 'value' | 'onChange'> & {
   value?: number
@@ -26,6 +28,7 @@ export type TextInputProps = BoxProps & {
   type?: 'text' | 'number'
   name?: string
 
+  prefix?: string
   error?: boolean
   disableAutoFocus?: boolean
 }
@@ -37,40 +40,39 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       name,
       value,
       onChange,
+      prefix,
       error,
       disableAutoFocus,
       ...boxProps
     } = props
 
     return (
-      <input
-        ref={ref}
-        type={type}
-        name={name}
-        value={value}
-        onChange={e => onChange?.(e.currentTarget.value)}
-        onFocus={disableAutoFocus ? undefined : e => e.currentTarget.select()}
-        css={[
-          useBoxStyle({
-            pad: 'S',
-            color: 'semiTransparent',
-            borderRadius: 'S',
-            ...boxProps,
-          }),
-          {
-            fontSize: '1em',
-            outline: 0,
-            borderWidth: 2,
-            borderColor: 'transparent',
-            ':focus': {
-              borderColor: theme.color.focus,
-            },
+      <Row
+        alignCenterVertical
+        color="semiTransparent"
+        gap="none"
+        borderRadius="S"
+        padLeft="S"
+        borderColor={error ? 'error' : 'transparent'}
+        {...boxProps}
+        style={{
+          borderWidth: 2,
+          ':focus-within': {
+            borderColor: theme.color.focus,
           },
-          error && {
-            borderColor: theme.color.error,
-          },
-        ]}
-      />
+        }}
+      >
+        {prefix && <Label bold text={prefix} />}
+        <input
+          ref={ref}
+          type={type}
+          name={name}
+          value={value}
+          onChange={e => onChange?.(e.currentTarget.value)}
+          onFocus={disableAutoFocus ? undefined : e => e.currentTarget.select()}
+          css={useBoxStyle({ padVertical: 'S', flex: true })}
+        />
+      </Row>
     )
   },
 )

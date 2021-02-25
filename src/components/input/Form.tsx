@@ -1,5 +1,7 @@
 import { Column, ColumnProps } from '../layout/FlexBox'
 import {
+  useForm,
+  UseFormOptions,
   UseFormMethods,
   SubmitHandler,
   FieldError,
@@ -7,21 +9,22 @@ import {
 } from 'react-hook-form'
 import { createContext, useContext } from 'react'
 import { Label } from '../typography/Label'
-import { TextInput } from './TextInput'
+import { TextInput, TextInputProps } from './TextInput'
 
 export type FormProps<T> = ColumnProps & {
-  form: UseFormMethods<T>
+  options: UseFormOptions<T, any>
   onSubmit: SubmitHandler<T>
 }
 
 export const formContext = createContext<UseFormMethods<any>>(null as any)
 
 export function Form<T>(props: FormProps<T>) {
-  const { form, onSubmit, ...columnProps } = props
-  const { handleSubmit, errors } = form
+  const { options, onSubmit, ...columnProps } = props
+
+  const form = useForm<T>(options)
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={form.handleSubmit(onSubmit)}>
       <formContext.Provider value={form}>
         <Column {...columnProps} />
       </formContext.Provider>
@@ -30,26 +33,25 @@ export function Form<T>(props: FormProps<T>) {
 }
 
 export type FormFieldProps = {
-  label: string
   name: string
-  type?: 'text' | 'number'
+  label: string
   options?: RegisterOptions
-}
+} & Pick<TextInputProps, 'type' | 'prefix'>
 
 export function FormField(props: FormFieldProps) {
-  const { name, label, type, options } = props
+  const { name, label, options, ...textInputProps } = props
   const { errors, register } = useContext(formContext)
 
   return (
-    <Column gap="XXS">
+    <Column gap="none">
       <Label text={label} />
       <TextInput
-        type={type}
+        {...textInputProps}
         name={name}
         ref={register(options)}
         error={errors[name] != null}
       />
-      <Label small textColor="error" text={errors[name]?.message} />
+      <Label textColor="error" text={errors[name]?.message} />
     </Column>
   )
 }
