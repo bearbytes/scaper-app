@@ -4,10 +4,12 @@ import { theme } from '../theme'
 export type TextInputProps = BoxProps & {
   value: string
   onChange(value: string): void
+
+  disableAutoFocus?: boolean
 }
 
 export function TextInput(props: TextInputProps) {
-  const { value, onChange, ...boxProps } = props
+  const { value, onChange, disableAutoFocus, ...boxProps } = props
 
   return (
     <input
@@ -30,6 +32,7 @@ export function TextInput(props: TextInputProps) {
       ]}
       value={value}
       onChange={e => onChange(e.currentTarget.value)}
+      onFocus={disableAutoFocus ? undefined : e => e.currentTarget.select()}
     />
   )
 }
