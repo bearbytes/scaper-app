@@ -1,9 +1,17 @@
-import { GetServerSideProps, GetStaticProps } from 'next'
-import { getSession, useSession } from 'next-auth/client'
+import { GetServerSideProps } from 'next'
+import { getSession } from 'next-auth/client'
 import React from 'react'
-import { Column, Form, Grid, Label, Row, TextInput } from '../components'
-import { Panel } from '../components/container/Panel'
-import { FormField } from '../components/input/FormField'
+import {
+  Form,
+  Grid,
+  Label,
+  NumberInput,
+  TextInput,
+  FormField,
+  Panel,
+} from '../components'
+import { useForm } from 'react-hook-form'
+import { SubmitButton } from '../components/input/SubmitButton'
 
 /* Types */
 
@@ -15,26 +23,48 @@ export default function SetupUserPage() {
   return (
     <Panel>
       <Label large text="Welcome" />
-      <Form>
-        <FormField label="Your username:">
-          <TextInput value="Blablabla" onChange={console.log} />
-        </FormField>
-
-        <Grid columnWidth={100}>
-          <FormField label="Age">
-            <TextInput value="12" onChange={console.log} />
-          </FormField>
-
-          <FormField label="Location">
-            <TextInput value="Berlin" onChange={console.log} />
-          </FormField>
-
-          <FormField label="Language">
-            <TextInput value="English" onChange={console.log} />
-          </FormField>
-        </Grid>
-      </Form>
+      <SetupUserForm />
     </Panel>
+  )
+}
+
+function SetupUserForm() {
+  type Inputs = {
+    username: string
+    yearOfBirth?: number
+    location?: string
+    language?: string
+  }
+
+  const form = useForm<Inputs>()
+  const onSubmit = (inputs: Inputs) => {
+    console.log(inputs)
+  }
+
+  return (
+    <Form form={form} onSubmit={onSubmit}>
+      <FormField
+        label="Your username:"
+        name="username"
+        options={{
+          required: 'Username is required',
+          minLength: { value: 4, message: 'Must be at least 4 characters' },
+          pattern: /@[a-z][a-z0-9]+/,
+        }}
+      />
+      <Grid columnWidth={100}>
+        <FormField
+          type="number"
+          name="yearOfBirth"
+          label="Year of Birth"
+          options={{ min: 0, max: 2021 }}
+        />
+        <FormField label="Location" name="location" />
+        <FormField label="Language" name="language" />
+      </Grid>
+
+      <SubmitButton />
+    </Form>
   )
 }
 

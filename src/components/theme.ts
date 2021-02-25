@@ -39,7 +39,8 @@ const color = {
   semiTransparent: '#fff4',
   background: 'hsl(120, 0%, 100%)',
   elevated: 'hsl(0, 0%, 10%)',
-  active: 'hsl(120, 40%, 25%)',
+  focus: 'hsl(120, 40%, 25%)',
+  error: '#f00',
 }
 
 export const backgroundGradient =
@@ -52,6 +53,7 @@ export type TextColor = keyof typeof textColor
 const textColor = {
   default: '#000',
   inverted: '#eee',
+  error: '#f00',
 }
 
 export type Theme = typeof theme
