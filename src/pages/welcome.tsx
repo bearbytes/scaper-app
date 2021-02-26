@@ -11,7 +11,7 @@ import {
   Panel,
   Row,
 } from '../components'
-import { useForm, useFormContext } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { SubmitButton } from '../components/input/SubmitButton'
 
 /* Types */
