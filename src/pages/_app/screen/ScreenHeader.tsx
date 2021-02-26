@@ -45,6 +45,7 @@ function UserInfo({ user }: { user: Session['user'] }) {
       popupElement={menuOpen && <UserMenu />}
       width={50}
       height={50}
+      anchor="bottom right"
     >
       {user.image && <Image uri={user.image} />}
     </PopupContainer>

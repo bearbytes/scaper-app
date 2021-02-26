@@ -25,6 +25,7 @@ export type BoxProps = {
 
   flex?: number | boolean
 
+  opacity?: number
   color?: Color
   textColor?: TextColor
 
@@ -66,6 +67,7 @@ export function useBoxStyle(props: BoxProps): CSSInterpolation {
 
     flex,
 
+    opacity,
     color,
     textColor,
 
@@ -93,6 +95,7 @@ export function useBoxStyle(props: BoxProps): CSSInterpolation {
 
     flex: typeof flex == 'number' ? flex : flex == true ? 1 : undefined,
 
+    opacity,
     backgroundColor: theme.color[color!],
     color: theme.textColor[textColor!],
 

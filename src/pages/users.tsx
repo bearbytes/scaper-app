@@ -32,9 +32,9 @@ function UsersList() {
   const { users } = usePageProps<PageProps>()
   return (
     <List
-      rows={users}
+      items={users}
       keySelector={user => user.id}
-      renderRow={user => <UserRow user={user} />}
+      renderItem={user => <UserRow user={user} />}
     />
   )
 }

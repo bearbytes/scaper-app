@@ -5,11 +5,9 @@ import {
   Form,
   Grid,
   Label,
-  NumberInput,
-  TextInput,
   FormField,
   Panel,
-  Row,
+  LocationInput,
 } from '../components'
 import { useForm } from 'react-hook-form'
 import { SubmitButton } from '../components/input/SubmitButton'
@@ -37,7 +35,6 @@ function SetupUserForm() {
     language?: string
   }
 
-  const form = useForm<Inputs>()
   const onSubmit = (inputs: Inputs) => {
     console.log(inputs)
   }
@@ -71,6 +68,8 @@ function SetupUserForm() {
         <FormField label="Location" name="location" />
         <FormField label="Language" name="language" />
       </Grid>
+
+      <LocationInput />
 
       <SubmitButton />
     </Form>
