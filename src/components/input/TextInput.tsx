@@ -26,7 +26,7 @@ export type TextInputProps = BoxProps & {
   onChange?(value: string): void
   onBlur?(): void
 
-  type?: 'text' | 'number'
+  type?: 'text' | 'number' | 'date'
   name?: string
 
   prefix?: string

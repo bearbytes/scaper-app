@@ -11,7 +11,7 @@ import {
   Panel,
   Row,
 } from '../components'
-import { useForm } from 'react-hook-form'
+import { useForm, useFormContext } from 'react-hook-form'
 import { SubmitButton } from '../components/input/SubmitButton'
 
 /* Types */
@@ -32,7 +32,7 @@ export default function SetupUserPage() {
 function SetupUserForm() {
   type Inputs = {
     username: string
-    yearOfBirth?: number
+    birthdate?: Date
     location?: string
     language?: string
   }
@@ -51,8 +51,9 @@ function SetupUserForm() {
         options={{
           required: 'Username is required',
           pattern: {
-            value: /[a-z][a-z0-9\-_\.]+/,
-            message: 'Only lower-case characters and numbers are allowed.',
+            value: /[a-z][a-z0-9\-_\.]+/i,
+            message:
+              'Name must start with a letter and can only contain URL-friendly characters.',
           },
           minLength: {
             value: 4,
@@ -62,10 +63,10 @@ function SetupUserForm() {
       />
       <Grid columnWidth={100}>
         <FormField
-          type="number"
-          name="yearOfBirth"
-          label="Year of Birth"
-          options={{ min: 0, max: 2021 }}
+          type="date"
+          name="birthdate"
+          label="Date of Birth"
+          options={{ valueAsDate: true }}
         />
         <FormField label="Location" name="location" />
         <FormField label="Language" name="language" />
