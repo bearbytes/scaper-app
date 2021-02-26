@@ -40,7 +40,7 @@ const color = {
   background: 'hsl(120, 0%, 100%)',
   elevated: 'hsl(0, 0%, 10%)',
   focus: 'hsl(120, 40%, 25%)',
-  error: '#c00',
+  error: '#a00',
 }
 
 export const backgroundGradient =
@@ -53,7 +53,7 @@ export type TextColor = keyof typeof textColor
 const textColor = {
   default: '#000',
   inverted: '#eee',
-  error: '#c00',
+  error: '#a00',
 }
 
 export type Theme = typeof theme

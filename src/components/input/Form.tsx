@@ -2,12 +2,12 @@ import { Column, ColumnProps } from '../layout/FlexBox'
 import {
   useForm,
   UseFormOptions,
-  UseFormMethods,
   SubmitHandler,
-  FieldError,
   RegisterOptions,
+  FormProvider,
+  useFormContext,
+  Controller,
 } from 'react-hook-form'
-import { createContext, useContext } from 'react'
 import { Label } from '../typography/Label'
 import { TextInput, TextInputProps } from './TextInput'
 
@@ -16,19 +16,17 @@ export type FormProps<T> = ColumnProps & {
   onSubmit: SubmitHandler<T>
 }
 
-export const formContext = createContext<UseFormMethods<any>>(null as any)
-
 export function Form<T>(props: FormProps<T>) {
   const { options, onSubmit, ...columnProps } = props
 
   const form = useForm<T>(options)
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
-      <formContext.Provider value={form}>
+    <FormProvider {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Column {...columnProps} />
-      </formContext.Provider>
-    </form>
+      </form>
+    </FormProvider>
   )
 }
 
@@ -36,11 +34,12 @@ export type FormFieldProps = {
   name: string
   label: string
   options?: RegisterOptions
+  // transform?(value: string): string
 } & Pick<TextInputProps, 'type' | 'prefix'>
 
 export function FormField(props: FormFieldProps) {
   const { name, label, options, ...textInputProps } = props
-  const { errors, register } = useContext(formContext)
+  const { errors, register } = useFormContext()
 
   return (
     <Column gap="none">

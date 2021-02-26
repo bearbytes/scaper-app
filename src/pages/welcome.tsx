@@ -50,8 +50,14 @@ function SetupUserForm() {
         name="username"
         options={{
           required: 'Username is required',
-          minLength: { value: 4, message: 'Must be at least 4 characters' },
-          pattern: /@[a-z][a-z0-9]+/,
+          pattern: {
+            value: /[a-z][a-z0-9\-_\.]+/,
+            message: 'Only lower-case characters and numbers are allowed.',
+          },
+          minLength: {
+            value: 4,
+            message: 'Must be at least 4 characters.',
+          },
         }}
       />
       <Grid columnWidth={100}>

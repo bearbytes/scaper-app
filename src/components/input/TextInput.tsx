@@ -24,6 +24,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
 export type TextInputProps = BoxProps & {
   value?: string
   onChange?(value: string): void
+  onBlur?(): void
 
   type?: 'text' | 'number'
   name?: string
@@ -40,6 +41,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       name,
       value,
       onChange,
+      onBlur,
       prefix,
       error,
       disableAutoFocus,
@@ -70,6 +72,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           value={value}
           onChange={e => onChange?.(e.currentTarget.value)}
           onFocus={disableAutoFocus ? undefined : e => e.currentTarget.select()}
+          onBlur={onBlur}
           css={useBoxStyle({ padVertical: 'S', flex: true })}
         />
       </Row>
