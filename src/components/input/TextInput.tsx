@@ -1,25 +1,9 @@
-import React, { forwardRef, Ref } from 'react'
+import React, { forwardRef, ReactNode, Ref } from 'react'
+import { IconType } from 'react-icons'
 import { Box, BoxProps, useBoxStyle } from '../layout/Box'
 import { Row } from '../layout/FlexBox'
 import { theme } from '../theme'
 import { Label } from '../typography/Label'
-
-export type NumberInputProps = Omit<TextInputProps, 'value' | 'onChange'> & {
-  value?: number
-  onChange?(value: number): void
-}
-
-export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
-  (props, ref) => (
-    <TextInput
-      ref={ref}
-      {...props}
-      value={props.value?.toString()}
-      onChange={text => props.onChange?.(parseFloat(text))}
-      type="number"
-    />
-  ),
-)
 
 export type TextInputProps = BoxProps & {
   value?: string
@@ -29,6 +13,7 @@ export type TextInputProps = BoxProps & {
   type?: 'text' | 'number' | 'date'
   name?: string
 
+  icon?: IconType
   prefix?: string
   error?: boolean
   disableAutoFocus?: boolean
@@ -37,14 +22,18 @@ export type TextInputProps = BoxProps & {
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (props, ref) => {
     const {
-      type,
-      name,
       value,
       onChange,
       onBlur,
+
+      type,
+      name,
+
+      icon: Icon,
       prefix,
       error,
       disableAutoFocus,
+
       ...boxProps
     } = props
 
@@ -64,6 +53,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           },
         }}
       >
+        {Icon && <Icon style={{ minWidth: '1em' }} />}
         {prefix && <Label bold text={prefix} />}
         <input
           ref={ref}

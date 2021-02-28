@@ -7,7 +7,7 @@ export type FormFieldProps = {
   name: string
   label: string
   options?: RegisterOptions
-} & Pick<TextInputProps, 'type' | 'prefix'>
+} & Pick<TextInputProps, 'type' | 'prefix' | 'icon'>
 
 export function FormField(props: FormFieldProps) {
   const { name, label, options, ...textInputProps } = props

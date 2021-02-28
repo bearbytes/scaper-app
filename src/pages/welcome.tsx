@@ -1,16 +1,9 @@
 import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/client'
 import React from 'react'
-import {
-  Form,
-  Grid,
-  Label,
-  FormField,
-  Panel,
-  LocationInput,
-} from '../components'
-import { useForm } from 'react-hook-form'
+import { Form, Grid, Label, FormField, Panel } from '../components'
 import { SubmitButton } from '../components/input/SubmitButton'
+import { FiCalendar, FiGlobe, FiHome } from 'react-icons/fi'
 
 /* Types */
 
@@ -60,16 +53,14 @@ function SetupUserForm() {
       />
       <Grid columnWidth={100}>
         <FormField
-          type="date"
+          icon={FiCalendar}
           name="birthdate"
           label="Date of Birth"
-          options={{ valueAsDate: true }}
+          type="date"
         />
-        <FormField label="Location" name="location" />
-        <FormField label="Language" name="language" />
+        <FormField icon={FiHome} label="Location" name="location" />
+        <FormField icon={FiGlobe} label="Language" name="language" />
       </Grid>
-
-      <LocationInput />
 
       <SubmitButton />
     </Form>
