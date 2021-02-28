@@ -1,49 +1,58 @@
-import { suggestionList } from 'nexus/dist/core'
-import React, { useEffect, useState } from 'react'
-import { Box, List, Label } from '..'
+import React, { ReactNode, useEffect, useState } from 'react'
+import { Box, List } from '..'
 import { useDebounce } from '../../lib/hooks/useDebounce'
 import { PopupContainer } from '../container/PopupContainer'
 import { TextInput, TextInputProps } from './TextInput'
 
-export type AutoCompleteInputProps = TextInputProps & {
-  fetchSuggestions(value: string): Promise<string[]>
+export type AutoCompleteInputProps<T> = Omit<
+  TextInputProps,
+  'value' | 'onChange' | 'type'
+> & {
+  fetchOptions(searchText: string): Promise<T[]>
+  renderOption(option: T): ReactNode
 }
 
-export function AutoCompleteInput(props: AutoCompleteInputProps) {
-  const { fetchSuggestions, ...textInputProps } = props
+export function AutoCompleteInput<T>(props: AutoCompleteInputProps<T>) {
+  const { fetchOptions, renderOption, ...textInputProps } = props
 
   const [value, setValue] = useState('')
-  const [suggestions, setSuggestions] = useState([] as string[])
+  const [options, setOptions] = useState([] as T[])
   const debouncedValue = useDebounce(value, 200)
 
   useEffect(() => {
-    fetchSuggestions(debouncedValue).then(setSuggestions)
+    fetchOptions(debouncedValue).then(setOptions)
   }, [debouncedValue])
 
   return (
     <PopupContainer
-      popupElement={<SuggestionList suggestions={suggestions} />}
+      popupElement={
+        <OptionList options={options} renderOption={renderOption} />
+      }
       anchor="bottom"
     >
       <TextInput
         {...textInputProps}
         onChange={text => {
           setValue(text)
-          props.onChange?.(text)
+          // TODO
+          // props.onChange?.(text)
         }}
       />
     </PopupContainer>
   )
 }
 
-function SuggestionList(props: { suggestions: string[] }) {
-  if (props.suggestions.length == 0) return null
+function OptionList<T>(props: {
+  options: T[]
+  renderOption(option: T): ReactNode
+}) {
+  if (props.options.length == 0) return null
 
   return (
     <Box padTop="XS">
       <List
-        items={props.suggestions}
-        renderItem={item => <Label text={item} />}
+        items={props.options}
+        renderItem={props.renderOption}
         borderColor="elevated"
         borderRadius="S"
         pad="M"

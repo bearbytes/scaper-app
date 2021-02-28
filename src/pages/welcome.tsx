@@ -33,11 +33,12 @@ function SetupUserForm() {
   }
 
   return (
-    <Form onSubmit={onSubmit} options={{ mode: 'onChange' }}>
+    <Form onSubmit={onSubmit} options={{ mode: 'onChange' }} gap="M">
       <FormField
-        label="Your username:"
         prefix="@"
+        label="Your username:"
         name="username"
+        type="string"
         options={{
           required: 'Username is required',
           pattern: {
@@ -54,12 +55,22 @@ function SetupUserForm() {
       <Grid columnWidth={100}>
         <FormField
           icon={FiCalendar}
-          name="birthdate"
           label="Date of Birth"
-          type="date"
+          name="birthdate"
+          type="string"
         />
-        <FormField icon={FiHome} label="Location" name="location" />
-        <FormField icon={FiGlobe} label="Language" name="language" />
+        <FormField
+          icon={FiHome}
+          label="Location"
+          name="location"
+          type="Location"
+        />
+        <FormField
+          icon={FiGlobe}
+          label="Language"
+          name="language"
+          type="string"
+        />
       </Grid>
 
       <SubmitButton />

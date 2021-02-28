@@ -1,7 +1,8 @@
 export type FontSize = keyof typeof fontSize
 const fontSize = {
-  default: '1em',
+  xsmall: '0.66em',
   small: '0.8em',
+  default: '1em',
   large: '1.5em',
 }
 

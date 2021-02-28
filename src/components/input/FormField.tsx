@@ -2,21 +2,25 @@ import { Column } from '../layout/FlexBox'
 import { RegisterOptions, useFormContext } from 'react-hook-form'
 import { Label } from '../typography/Label'
 import { TextInput, TextInputProps } from './TextInput'
+import { LocationInput } from './LocationInput'
 
 export type FormFieldProps = {
   name: string
   label: string
   options?: RegisterOptions
-} & Pick<TextInputProps, 'type' | 'prefix' | 'icon'>
+  type: 'string' | 'number' | 'Location'
+} & Pick<TextInputProps, 'prefix' | 'icon'>
 
 export function FormField(props: FormFieldProps) {
-  const { name, label, options, ...textInputProps } = props
+  const { name, label, options, type, ...textInputProps } = props
   const { errors, register } = useFormContext()
+
+  const InputElement = pickInput()
 
   return (
     <Column gap="none">
       <Label text={label} />
-      <TextInput
+      <InputElement
         {...textInputProps}
         name={name}
         ref={register(options)}
@@ -25,4 +29,14 @@ export function FormField(props: FormFieldProps) {
       <Label textColor="error" text={errors[name]?.message} />
     </Column>
   )
+
+  function pickInput() {
+    switch (type) {
+      case 'number':
+      case 'string':
+        return TextInput
+      case 'Location':
+        return LocationInput
+    }
+  }
 }

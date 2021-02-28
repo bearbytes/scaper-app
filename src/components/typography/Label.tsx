@@ -13,6 +13,7 @@ export type LabelProps = BoxProps & {
   underline?: boolean
   strikethrough?: boolean
 
+  xsmall?: boolean
   small?: boolean
   large?: boolean
 
@@ -25,22 +26,29 @@ export type LabelProps = BoxProps & {
 export function Label(props: LabelProps) {
   const {
     text,
+
     title,
     bold,
     underline,
     strikethrough,
+
+    xsmall,
     small,
     large,
-    style,
+
     linkTo,
+
     alignLeft,
     alignCenter,
     alignRight,
+
+    style,
     ...boxProps
   } = props
 
   let fontSize: CSSObject['fontSize']
-  if (small) fontSize = theme.fontSize.small
+  if (xsmall) fontSize = theme.fontSize.xsmall
+  else if (small) fontSize = theme.fontSize.small
   else if (large) fontSize = theme.fontSize.large
 
   let fontWeight: CSSObject['fontWeight']
@@ -55,12 +63,16 @@ export function Label(props: LabelProps) {
   else if (alignCenter) textAlign = 'center'
   else if (alignRight) textAlign = 'right'
 
+  let fontFamily: CSSObject['fontFamily']
+  if (title) fontFamily = 'Lobster Two'
+
   const labelStyle = css({
     fontSize,
     fontWeight,
     textDecoration,
     textAlign,
-    fontFamily: title ? 'Lobster Two' : undefined,
+    fontFamily,
+    lineHeight: '1em',
   })
 
   return (
