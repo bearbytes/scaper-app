@@ -41,7 +41,7 @@ const color = {
   input: '#ddd',
   background: 'hsl(120, 0%, 100%)',
   elevated: 'hsl(0, 0%, 10%)',
-  focus: 'hsl(120, 40%, 25%)',
+  focus: '#0a08',
   error: '#a00',
 }
 

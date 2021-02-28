@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { Label } from '../typography/Label'
 import { AutoCompleteInput, AutoCompleteInputProps } from './AutoCompleteInput'
 import { Feature, FeatureCollection, Geometry } from 'geojson'
@@ -7,18 +7,22 @@ import { filter, join } from 'lodash'
 
 export type LocationInputProps = Omit<
   AutoCompleteInputProps<Location>,
-  'fetchOptions' | 'renderOption'
+  'fetchOptions' | 'renderOption' | 'toStringOption'
 >
 
-export function LocationInput(props: LocationInputProps) {
-  return (
-    <AutoCompleteInput
-      fetchOptions={fetchOptions}
-      renderOption={renderFeature}
-      {...props}
-    />
-  )
-}
+export const LocationInput = forwardRef<HTMLInputElement, LocationInputProps>(
+  (props, ref) => {
+    return (
+      <AutoCompleteInput
+        ref={ref}
+        fetchOptions={fetchOptions}
+        renderOption={FeatureItem}
+        toStringOption={toStringOption}
+        {...props}
+      />
+    )
+  },
+)
 
 type Properties = {
   name: string
@@ -35,17 +39,22 @@ async function fetchOptions(searchText: string) {
     Properties
   >
 
-  console.log(json)
   return json.features
 }
 
-function renderFeature(feature: Feature<Geometry, Properties>) {
-  const { name, country, county } = feature.properties
+function FeatureItem(props: {
+  value: Feature<Geometry, Properties>
+  isSelected: boolean
+}) {
+  const { name, country, county } = props.value.properties
 
   return (
-    <Column padVertical="S">
+    <Column pad="M" color={props.isSelected ? 'focus' : undefined}>
       <Label xsmall text={join(filter([country, county], Boolean), '/')} />
       <Label text={name} />
     </Column>
   )
+}
+function toStringOption(value: Feature<Geometry, Properties>) {
+  return value.properties.name
 }

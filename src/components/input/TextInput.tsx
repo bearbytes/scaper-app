@@ -8,15 +8,17 @@ import { Label } from '../typography/Label'
 export type TextInputProps = BoxProps & {
   value?: string
   onChange?(value: string): void
-  onBlur?(): void
 
   type?: 'text' | 'number' | 'date'
   name?: string
 
+  onBlur?(): void
+  onFocus?(): void
+
   icon?: IconType
   prefix?: string
   error?: boolean
-  disableAutoFocus?: boolean
+  disableSelectOnFocus?: boolean
 }
 
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
@@ -24,15 +26,17 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     const {
       value,
       onChange,
-      onBlur,
 
       type,
       name,
 
+      onBlur,
+      onFocus,
+
       icon: Icon,
       prefix,
       error,
-      disableAutoFocus,
+      disableSelectOnFocus,
 
       ...boxProps
     } = props
@@ -61,7 +65,10 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           name={name}
           value={value}
           onChange={e => onChange?.(e.currentTarget.value)}
-          onFocus={disableAutoFocus ? undefined : e => e.currentTarget.select()}
+          onFocus={e => {
+            if (!disableSelectOnFocus) e.currentTarget.select()
+            onFocus?.()
+          }}
           onBlur={onBlur}
           css={useBoxStyle({ padVertical: 'S', flex: true })}
         />

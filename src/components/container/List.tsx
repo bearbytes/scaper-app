@@ -4,9 +4,9 @@ import { Column, ColumnProps } from '../layout/FlexBox'
 
 export type ListProps<T> = ColumnProps & {
   items: T[]
-  renderItem: (value: T) => ReactNode
+  renderItem: (item: T, index: number) => ReactNode
 
-  keySelector?: (value: T) => string | number
+  keySelector?: (item: T) => string | number
 
   renderSeparator?: boolean
 }
@@ -28,7 +28,7 @@ export function List<T>(props: ListProps<T>) {
       {items.map((row, index) => (
         <Fragment key={keySelector?.(row) ?? index}>
           {index > 0 && renderSeparator && <Separator />}
-          <Box>{renderItem(row)}</Box>
+          <Box>{renderItem(row, index)}</Box>
         </Fragment>
       ))}
     </Column>
