@@ -38,6 +38,7 @@ export type Color = keyof typeof color
 const color = {
   transparent: 'transparent',
   semiTransparent: '#fff4',
+  input: '#ddd',
   background: 'hsl(120, 0%, 100%)',
   elevated: 'hsl(0, 0%, 10%)',
   focus: 'hsl(120, 40%, 25%)',

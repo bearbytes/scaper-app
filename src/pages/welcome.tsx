@@ -33,7 +33,7 @@ function SetupUserForm() {
   }
 
   return (
-    <Form onSubmit={onSubmit} options={{ mode: 'onChange' }} gap="M">
+    <Form onSubmit={onSubmit} options={{ mode: 'onChange' }}>
       <FormField
         prefix="@"
         label="Your username:"
@@ -52,7 +52,7 @@ function SetupUserForm() {
           },
         }}
       />
-      <Grid columnWidth={100}>
+      <Grid columnWidth={100} gap="M">
         <FormField
           icon={FiCalendar}
           label="Date of Birth"

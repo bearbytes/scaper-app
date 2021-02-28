@@ -40,7 +40,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     return (
       <Row
         alignCenterVertical
-        color="semiTransparent"
+        color="input"
         gap="none"
         borderRadius="S"
         padLeft="S"

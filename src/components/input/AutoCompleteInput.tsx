@@ -53,11 +53,11 @@ function OptionList<T>(props: {
       <List
         items={props.options}
         renderItem={props.renderOption}
+        renderSeparator
         borderColor="elevated"
         borderRadius="S"
         pad="M"
-        color="semiTransparent"
-        style={{ backdropFilter: 'blur(5px)' }}
+        color="input"
       />
     </Box>
   )

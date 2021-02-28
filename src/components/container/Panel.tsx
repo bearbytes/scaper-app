@@ -1,11 +1,9 @@
 import { Column, ColumnProps } from '../layout/FlexBox'
 import { theme } from '../theme'
 
-export type PanelProps = ColumnProps & {
-  wide?: boolean
-}
+export type PanelProps = ColumnProps & {}
 
 export function Panel(props: PanelProps) {
-  const { wide, ...columnProps } = props
-  return <Column maxWidth={600} {...columnProps} />
+  const { ...columnProps } = props
+  return <Column maxWidth={600} gap="M" {...columnProps} />
 }

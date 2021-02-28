@@ -19,7 +19,7 @@ export function Form<T>(props: FormProps<T>) {
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Column {...columnProps} />
+        <Column gap="M" {...columnProps} />
       </form>
     </FormProvider>
   )

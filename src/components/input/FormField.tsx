@@ -18,7 +18,7 @@ export function FormField(props: FormFieldProps) {
   const InputElement = pickInput()
 
   return (
-    <Column gap="none">
+    <Column gap="XS">
       <Label text={label} />
       <InputElement
         {...textInputProps}
